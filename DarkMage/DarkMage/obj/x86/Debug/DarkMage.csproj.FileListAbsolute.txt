@@ -1,0 +1,16 @@
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\bin\Debug\DarkMage.exe.config
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\bin\Debug\DarkMage.exe
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\bin\Debug\DarkMage.pdb
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\bin\Debug\LeagueSharp.Common.dll
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\bin\Debug\LeagueSharp.dll
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\bin\Debug\SharpDX.dll
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\bin\Debug\LeagueSharp.Data.dll
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\bin\Debug\clipper_library.dll
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\bin\Debug\Newtonsoft.Json.dll
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\bin\Debug\LeagueSharp.Common.pdb
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\bin\Debug\LeagueSharp.Data.pdb
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\bin\Debug\clipper_library.pdb
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\obj\x86\Debug\DarkMage.csprojResolveAssemblyReference.cache
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\obj\x86\Debug\DarkMage.exe
+C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\obj\x86\Debug\DarkMage.pdb
