@@ -26,6 +26,7 @@ namespace DarkMage
                     Jungleclear(core);
                     break;
                 case Orbwalking.OrbwalkingMode.LastHit:
+                    LastHit(core);
                     break;
                 case Orbwalking.OrbwalkingMode.Freeze:
                     break;
@@ -49,7 +50,10 @@ namespace DarkMage
         public virtual void Laneclear(SyndraCore core)
         {
         }
+        public virtual void LastHit(SyndraCore core)
+        {
 
+        }
         public virtual void Harash(SyndraCore core)
         {
         }

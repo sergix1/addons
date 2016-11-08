@@ -15,7 +15,6 @@ namespace DarkMage
         LeagueSharp.Common.Menu _orbWalkerMenu, _targetSelectorMenu;
         public Menu(string menuName, SyndraCore core)
         {
-            Console.WriteLine("HI");
             this._menuName = menuName;
             LoadMenu(core);
             CloseMenu();
@@ -26,10 +25,10 @@ namespace DarkMage
             _orbWalkerMenu = new LeagueSharp.Common.Menu("Orbwalker", "Orbwalker");
             Orb = new Orbwalking.Orbwalker(_orbWalkerMenu);
             _targetSelectorMenu = new LeagueSharp.Common.Menu("TargetSelector", "TargetSelector");
-        // LoadLaneClearMenu();
-          LoadHarashMenu();
+            LoadLaneClearMenu();
+            LoadHarashMenu();
             LoadComboMenu();
-         //   LoadJungleClearMenu();
+            LoadJungleClearMenu();
             LoadDrawings();
             LoadkeyMenu();
           //  LoadMiscInterrupt(azir);
@@ -63,7 +62,6 @@ namespace DarkMage
 
         private void LoadJungleClearMenu()
         {
-            throw new NotImplementedException();
         }
 
         public virtual void LoadHarashMenu()
@@ -71,9 +69,8 @@ namespace DarkMage
   
         }
 
-        private void LoadLaneClearMenu()
+        public virtual void LoadLaneClearMenu()
         {
-            throw new NotImplementedException();
         }
 
         public virtual void CloseMenu()

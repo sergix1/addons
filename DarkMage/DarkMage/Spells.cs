@@ -34,7 +34,7 @@ namespace DarkMage
             if (Q.IsReady())
                 {
                 var qTarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
-                return Q.Cast(qTarget, false, true).IsCasted();
+                return Q.CastIfWillHit(qTarget, 0,false);
             }
             return false;
         }
@@ -55,13 +55,37 @@ namespace DarkMage
                         if (getOrbs.WObject(false) != null)
                         {
                             W.From = getOrbs.WObject(false).ServerPosition;
-                            W.Cast(wTarget, false, true);
+                            W.CastIfWillHit(wTarget, 0, false);
+                            return true;
+                        }
+                    }
+            }
+                return false;
+            
+        }
+               public bool castWToPos(Vector2 pos)
+        {
+            if (W.IsReady())
+            {
+                    if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState == 1 && W.IsReady())
+                    {
+                        var orb = orbManager.GetOrbToGrab((int)W.Range);
+                        if (orb != null)
+                            W.Cast(orb);
+                    }
+                    else if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState != 1 && W.IsReady())
+                    {
+                        if (getOrbs.WObject(false) != null)
+                        {
+                            W.From = getOrbs.WObject(false).ServerPosition;
+                            W.Cast(pos);
                             return true;
                         }
                     }
             }
             return false;
         }
+      
         public bool castE()
         {
             if (E.IsReady())
@@ -94,8 +118,7 @@ namespace DarkMage
                     if(castRCheck(rTarget,core))
                     if (NotKilleableWithOtherSpells(rTarget))
                     {
-                        float damagePerBall = (R.GetDamage(rTarget) / 3);
-                        float totalDamageR = R.GetDamage(rTarget) + damagePerBall * getOrbs.GetOrbs().Count;
+                            float totalDamageR = RDamage(rTarget);
                         if (rTarget.Health <= totalDamageR)
                         {
                             R.Cast(rTarget);
@@ -105,9 +128,45 @@ namespace DarkMage
             }
             return false;
         }
+        public float RDamage(Obj_AI_Hero target)
+        {
+            float damagePerBall = (R.GetDamage(target) / 3);
+            float totalDamageR = R.GetDamage(target) + damagePerBall * getOrbs.GetOrbs().Count;
+            return totalDamageR;
+        }
         public bool castRCheck(Obj_AI_Hero target,SyndraCore core)
         {
-      return  core.GetMenu.GetMenu.Item(target.ChampionName).GetValue<bool>();
+            var checkZhoniaMenu =  core.GetMenu.GetMenu.Item("DONTRZHONYA").GetValue<bool>();
+            if(checkZhoniaMenu)
+            {
+                //Zhonias lol
+                var zhonyaName = "ZhonyasHourglass";
+                SpellSlot slot;
+                for (int i =1;i<=6;i++)
+                {
+                    slot = core.Events.intToSpellSlot(i);
+                    if (target.GetSpell(slot).Name == zhonyaName)
+                    {
+                        if (target.GetSpell(slot).IsReady()) return false;
+                    }
+                }
+            }
+            if (target.IsInvulnerable)
+            {
+                return false;
+            }
+
+            foreach (Champion tar in core.Events.listChampions)
+            {
+                var checkFirst = core.GetMenu.GetMenu.Item(tar.Name+"-"+core.Events.SpellSlotToString(tar.SpellSlot)).GetValue<bool>();
+                if (checkFirst)
+                if (target.ChampionName == tar.Name)
+                {
+                    if(core.GetMenu.GetMenu.Item(target.ChampionName).GetValue<bool>())
+                    return tar.CastRToDat();
+                }
+            }
+            return  core.GetMenu.GetMenu.Item(target.ChampionName).GetValue<bool>();
      
         }
         private bool NotKilleableWithOtherSpells(Obj_AI_Hero target)

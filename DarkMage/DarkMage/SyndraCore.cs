@@ -19,6 +19,9 @@ namespace DarkMage
         public Menu GetMenu => _menu;
         public Spells GetSpells => _spells;
         Modes _modes;
+        GameEvents events;
+        public GameEvents Events=>events;
+        DrawDamage drawDamage;
         public SyndraCore()
         {
             tittle = "[Syndra]Dark Mage";
@@ -28,12 +31,12 @@ namespace DarkMage
         private void OnLoad(EventArgs args)
         {
             if (Hero.ChampionName != "Syndra") return;
-
             Game.PrintChat("<b><font color =\"#FF33D6\">Dark Mage Loaded!</font></b>");
             _menu = new SyndraMenu("Dark.Mage", this);
             _spells = new Spells();
+            drawDamage = new DrawDamage(this);
             _modes = new SyndraModes();
-            Game.OnUpdate += OnUpdate;
+ 
             LeagueSharp.Drawing.OnDraw += Ondraw;
 
         }
@@ -71,6 +74,7 @@ namespace DarkMage
                 string orbsTotal = "Active Orbs R : " + (_spells.getOrbs.GetOrbs().Count + 4);
                 Drawing.DrawText(0, 200, System.Drawing.Color.Yellow, orbsTotal);
             }
+           
         }
 
         private void OnUpdate(EventArgs args)

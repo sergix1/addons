@@ -10,7 +10,7 @@ namespace DarkMage
 {
     class SyndraMenu : Menu
     {
-        LeagueSharp.Common.Menu _comboMenu,_drawingMenu, _harassMenu, _keyMenu,_targetsRMe;
+        LeagueSharp.Common.Menu _comboMenu,_drawingMenu, _harassMenu, _keyMenu,_targetsRMe, _dontRIfSpellReady,_farmMenu,_laneClearMenu,_JungleClearMenu;
         public SyndraMenu(string menuName, SyndraCore core) : base(menuName, core)
         {
         }
@@ -44,13 +44,52 @@ namespace DarkMage
                 _drawingMenu.AddItem(new MenuItem("DO", "Draw Orbs").SetValue(true));
                 _drawingMenu.AddItem(new MenuItem("DST", "Draw Sphere Text").SetValue(true));
             }
-            _targetsRMe = new LeagueSharp.Common.Menu("Targets R" , "Targets R");
+            _targetsRMe = new LeagueSharp.Common.Menu("Targets R", "Targets R");
             {
-                foreach(Obj_AI_Hero hero in HeroManager.Enemies)
+                foreach (Obj_AI_Hero hero in HeroManager.Enemies)
                 {
                     _targetsRMe.AddItem(new MenuItem(hero.ChampionName, hero.ChampionName).SetValue(true));
                 }
             }
+            _dontRIfSpellReady = new LeagueSharp.Common.Menu("R Spells", "Dont R if");
+            {
+               _dontRIfSpellReady.AddItem(new MenuItem("DONTRZHONYA", "Dont R if enemy has zhonia active").SetValue(false));
+                foreach (Obj_AI_Hero hero in HeroManager.Enemies)
+                {
+                    foreach (String s in Lists.DontRSpellList)
+                    {
+                        var result = s.Split('-');
+                        if (result[0].ToLower() == hero.ChampionName.ToLower())
+                        {
+                            _dontRIfSpellReady.AddItem(new MenuItem(hero.ChampionName+ "-"+s[1], hero.ChampionName+ " " + s[1]).SetValue(true));
+                        }
+                        //   "Fizz-E","Vladimir-W","Ekkko-R","Zed-R","Yi-Q","Zilean-R","Shaco-R","Kalista-R","Lissandra-R","Kindred-R","Kayle-R","Taric-R"
+                    }
+                }
+            }
+        }
+        public override void LoadLaneClearMenu()
+        {
+            _laneClearMenu = new LeagueSharp.Common.Menu("Laneclear", "Laneclear");
+            {
+                _laneClearMenu.AddItem(new MenuItem("LQ", "Use Q").SetValue(true));
+                _laneClearMenu.AddItem(new MenuItem("LW", "Use W").SetValue(true));
+                _laneClearMenu.AddItem(new MenuItem("LM", "Minium Mana %").SetValue(new Slider(0, 50, 100)));
+            }
+            _JungleClearMenu = new LeagueSharp.Common.Menu("Jungleclear", "Jungleclear");
+            {
+                _JungleClearMenu.AddItem(new MenuItem("JQ", "Use Q").SetValue(true));
+                _JungleClearMenu.AddItem(new MenuItem("JW", "Use W").SetValue(true));
+                _JungleClearMenu.AddItem(new MenuItem("JE", "Use E").SetValue(true));
+                _JungleClearMenu.AddItem(new MenuItem("JM", "Minium Mana %").SetValue(new Slider(0,50, 100)));
+            }
+            _farmMenu = new LeagueSharp.Common.Menu("Farm  Menu", "Farm Menu");
+            {
+                _farmMenu.AddSubMenu(_laneClearMenu);
+                _farmMenu.AddSubMenu(_JungleClearMenu);
+            }
+
+            base.LoadLaneClearMenu();
         }
         public override void LoadkeyMenu()
         {
@@ -63,7 +102,9 @@ namespace DarkMage
         {
             GetMenu.AddSubMenu(_comboMenu);
             GetMenu.AddSubMenu(_harassMenu);
+            GetMenu.AddSubMenu(_farmMenu);
             GetMenu.AddSubMenu(_targetsRMe);
+            GetMenu.AddSubMenu(_dontRIfSpellReady);
             GetMenu.AddSubMenu(_keyMenu);
             GetMenu.AddSubMenu(_drawingMenu);
             base.CloseMenu();

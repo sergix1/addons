@@ -54,15 +54,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Menu.cs" />
-    <Compile Include="Modes.cs" />
+    <Compile Include="Champion.cs" />
+    <Compile Include="GameEvents.cs" />
+    <Compile Include="Menu\DrawDamage.cs" />
+    <Compile Include="Menu\Menu.cs" />
+    <Compile Include="Modes\Modes.cs" />
     <Compile Include="OrbManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spells.cs" />
     <Compile Include="SyndraCore.cs" />
-    <Compile Include="SyndraMenu.cs" />
-    <Compile Include="SyndraModes.cs" />
+    <Compile Include="Menu\SyndraMenu.cs" />
+    <Compile Include="Modes\SyndraModes.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
