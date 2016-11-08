@@ -30,7 +30,7 @@ namespace DarkMage
         public List<Champion> listChampions;
         public readonly string[] DontRSpellList = new[]
         {
-      "Fizz-E","Vladimir-W","Ekkko-R","Zed-R","Yi-Q","Zilean-R","Shaco-R","Kalista-R","Lissandra-R","Kindred-R","Kayle-R","Taric-R"
+      "Fizz-E","Vladimir-W","Ekkko-R","Zed-R","MasterYi-Q","Zilean-R","Shaco-R","Kalista-R","Lissandra-R","Kindred-R","Kayle-R","Taric-R"
         };
         public void loadNotRSpells(SyndraCore core)
         {
