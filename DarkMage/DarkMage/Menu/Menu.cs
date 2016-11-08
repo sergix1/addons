@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DarkMage
 {
-    class Menu
+    public class Menu
     {
         public LeagueSharp.Common.Menu GetMenu { get; private set; }
         private string _menuName;

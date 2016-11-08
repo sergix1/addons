@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DarkMage
 {
-    class Champion
+   public class Champion
     {
         private SpellSlot spellslot;
         private String name;
@@ -40,14 +40,15 @@ namespace DarkMage
         }
         private void OnUpdate(EventArgs args)
         {
-           if(hero.GetSpell(spellslot).IsReady())
-            {
-                InvunerableSpellReady = true;
-            }
-           else
-            {
+          //  Console.WriteLine(spellslot);
+          // if(hero.GetSpell(spellslot).IsReady())
+           // {
+             //   InvunerableSpellReady = true;
+           // }
+           //else
+           // {
                 InvunerableSpellReady = false;
-            }
+           // }
         }
     }
 }

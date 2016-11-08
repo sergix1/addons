@@ -12,9 +12,8 @@ namespace DarkMage
       "Fizz-E","Vladimir-W","Ekkko-R","Zed-R","Yi-Q","Zilean-R","Shaco-R","Kalista-R","Lissandra-R","Kindred-R","Kayle-R","Taric-R"
         };
     }
-    internal class GameEvents
+    public class GameEvents
     {
-    
     //Fizz E.
     //vladimir W.
     //Ekko R.
@@ -23,16 +22,17 @@ namespace DarkMage
     //Zilean-R dont cast R with zilean ulti or if zilean has it at his R range .
     //Same as  kayle ,kalista and kindred.
     //Dont cast R with that shit (Taric R).
-    public GameEvents()
+    public GameEvents(SyndraCore core)
         {
-            loadNotRSpells();
+            listChampions = new List<Champion>();
+            loadNotRSpells(core);
         }
-        public List<Champion> listChampions = new List<Champion>();
+        public List<Champion> listChampions;
         public readonly string[] DontRSpellList = new[]
         {
       "Fizz-E","Vladimir-W","Ekkko-R","Zed-R","Yi-Q","Zilean-R","Shaco-R","Kalista-R","Lissandra-R","Kindred-R","Kayle-R","Taric-R"
         };
-        public void loadNotRSpells()
+        public void loadNotRSpells(SyndraCore core)
         {
             foreach (String s in DontRSpellList)
             {
@@ -41,6 +41,7 @@ namespace DarkMage
                 var championSpell = result[1];
                 listChampions.Add(new Champion(stringToSpell(championSpell),championName));
             }
+            core.championsWithDodgeSpells = listChampions;   
         }
         public SpellSlot intToSpellSlot(int s)
         {

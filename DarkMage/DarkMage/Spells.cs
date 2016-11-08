@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DarkMage
 {
-    class Spells
+    public class Spells
     {
         private Spell Q, W, E, R;
         public Spell getQ { get { return Q; } }
@@ -147,6 +147,7 @@ namespace DarkMage
                     slot = core.Events.intToSpellSlot(i);
                     if (target.GetSpell(slot).Name == zhonyaName)
                     {
+                        Console.WriteLine("hEY PEPE");
                         if (target.GetSpell(slot).IsReady()) return false;
                     }
                 }
@@ -155,10 +156,11 @@ namespace DarkMage
             {
                 return false;
             }
-
-            foreach (Champion tar in core.Events.listChampions)
+            // if(core.Events.listChampions!=null)
+            Console.WriteLine("Hey buddy");
+            foreach (Champion tar in core.events.listChampions)
             {
-                var checkFirst = core.GetMenu.GetMenu.Item(tar.Name+"-"+core.Events.SpellSlotToString(tar.SpellSlot)).GetValue<bool>();
+              var checkFirst = core.GetMenu.GetMenu.Item(tar.Name+"-"+core.Events.SpellSlotToString(tar.SpellSlot)).GetValue<bool>();
                 if (checkFirst)
                 if (target.ChampionName == tar.Name)
                 {

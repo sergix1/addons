@@ -11,6 +11,9 @@ namespace DarkMage
 {
     class SyndraModes : Modes
     {
+        public SyndraModes()
+        {
+        }
         public override void Combo(SyndraCore core)
         {
             var useQ = core.GetMenu.GetMenu.Item("CQ").GetValue<bool>();
@@ -133,10 +136,8 @@ MinionManager.GetMinions(
                 {
                     var QfarmPos = core.GetSpells.getQ.GetCircularFarmLocation(minionQ);
                     if (QfarmPos.Position.IsValid())
-                        if (QfarmPos.MinionsHit >= 2)
-                        {
                             core.GetSpells.getQ.Cast(QfarmPos.Position);
-                        }
+                        
                 }
             }
             if (useW)
@@ -153,10 +154,8 @@ MinionManager.GetMinions(
                     var WfarmPos = core.GetSpells.getQ.GetCircularFarmLocation(minionW);
                     if (WfarmPos.Position.IsValid())
                     {
-                        if (WfarmPos.MinionsHit >= 3)
-                        {
                             core.GetSpells.castWToPos(WfarmPos.Position);
-                        }
+                        
                     }
                 }
             }
@@ -169,6 +168,7 @@ MinionManager.GetMinions(
      MinionTypes.All,
      MinionTeam.Neutral,
      MinionOrderTypes.MaxHealth);
+                if(minionE!=null)
                 foreach (Vector3 pos in core.GetSpells.getOrbs.GetOrbs())
                 {
                     var result = minionE.Where(x => x.Position.Distance(pos) < 50);

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DarkMage
 {
-    class SyndraCore
+    public class SyndraCore
     {
 
         private string tittle,version;
@@ -19,9 +19,10 @@ namespace DarkMage
         public Menu GetMenu => _menu;
         public Spells GetSpells => _spells;
         Modes _modes;
-        GameEvents events;
+       public GameEvents events;
         public GameEvents Events=>events;
         DrawDamage drawDamage;
+        public List<Champion> championsWithDodgeSpells;
         public SyndraCore()
         {
             tittle = "[Syndra]Dark Mage";
@@ -32,11 +33,12 @@ namespace DarkMage
         {
             if (Hero.ChampionName != "Syndra") return;
             Game.PrintChat("<b><font color =\"#FF33D6\">Dark Mage Loaded!</font></b>");
+            GameEvents events = new GameEvents(this);
             _menu = new SyndraMenu("Dark.Mage", this);
             _spells = new Spells();
-            drawDamage = new DrawDamage(this);
+          //  drawDamage = new DrawDamage(this);
             _modes = new SyndraModes();
- 
+            Game.OnUpdate += OnUpdate;
             LeagueSharp.Drawing.OnDraw += Ondraw;
 
         }
@@ -79,6 +81,7 @@ namespace DarkMage
 
         private void OnUpdate(EventArgs args)
         {
+ 
             _modes.Update(this);
         }
     }

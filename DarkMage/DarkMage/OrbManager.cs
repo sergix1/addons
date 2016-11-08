@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DarkMage
 {
-    class OrbManager
+  public  class OrbManager
     {
         private static int _wobjectnetworkid = -1;
 

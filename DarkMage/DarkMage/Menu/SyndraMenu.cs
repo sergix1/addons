@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DarkMage
 {
-    class SyndraMenu : Menu
+   public class SyndraMenu : Menu
     {
         LeagueSharp.Common.Menu _comboMenu,_drawingMenu, _harassMenu, _keyMenu,_targetsRMe, _dontRIfSpellReady,_farmMenu,_laneClearMenu,_JungleClearMenu;
         public SyndraMenu(string menuName, SyndraCore core) : base(menuName, core)
@@ -61,7 +61,7 @@ namespace DarkMage
                         var result = s.Split('-');
                         if (result[0].ToLower() == hero.ChampionName.ToLower())
                         {
-                            _dontRIfSpellReady.AddItem(new MenuItem(hero.ChampionName+ "-"+s[1], hero.ChampionName+ " " + s[1]).SetValue(true));
+                            _dontRIfSpellReady.AddItem(new MenuItem(hero.ChampionName+ "-"+result[1], hero.ChampionName+ " " + result[1]).SetValue(true));
                         }
                         //   "Fizz-E","Vladimir-W","Ekkko-R","Zed-R","Yi-Q","Zilean-R","Shaco-R","Kalista-R","Lissandra-R","Kindred-R","Kayle-R","Taric-R"
                     }

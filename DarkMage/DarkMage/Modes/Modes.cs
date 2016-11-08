@@ -12,7 +12,6 @@ namespace DarkMage
         public virtual void Update(SyndraCore core)
         {
 
-
             switch (core.GetMenu.Orb.ActiveMode)
             {
                 case LeagueSharp.Common.Orbwalking.OrbwalkingMode.Combo:
