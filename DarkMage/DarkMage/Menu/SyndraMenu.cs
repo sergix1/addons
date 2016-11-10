@@ -63,7 +63,12 @@ namespace DarkMage
                         {
                             _dontRIfSpellReady.AddItem(new MenuItem(hero.ChampionName+ "-"+result[1], hero.ChampionName+ " " + result[1]).SetValue(true));
                         }
+                
                         //   "Fizz-E","Vladimir-W","Ekkko-R","Zed-R","Yi-Q","Zilean-R","Shaco-R","Kalista-R","Lissandra-R","Kindred-R","Kayle-R","Taric-R"
+                    }
+                    if (hero.ChampionName == "MasterYi")
+                    {
+                        _dontRIfSpellReady.AddItem(new MenuItem(hero.ChampionName + "-" +"Q", hero.ChampionName + " " +"Q").SetValue(true));
                     }
                 }
             }
@@ -96,6 +101,7 @@ namespace DarkMage
             _keyMenu = new LeagueSharp.Common.Menu("Keys", "Keys Menu");
             {
                 _keyMenu.AddItem(new MenuItem("QEkey", "Q+E To Mouse Key").SetValue(new KeyBind('T', KeyBindType.Press)));
+                _keyMenu.AddItem(new MenuItem("AUTOQE", "AUTO Q+E Stun target").SetValue(new KeyBind('X', KeyBindType.Press)));
             }
         }
         public override void CloseMenu()

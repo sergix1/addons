@@ -12,30 +12,28 @@ namespace DarkMage
     public class SyndraCore
     {
 
-        private string tittle,version;
+        private string _tittle,_version;
         public Obj_AI_Hero Hero => HeroManager.Player;
-        Menu _menu;
-        Spells _spells;
-        public Menu GetMenu => _menu;
-        public Spells GetSpells => _spells;
-        Modes _modes;
-       public GameEvents events;
-        public GameEvents Events=>events;
-        DrawDamage drawDamage;
+        public Menu GetMenu { get; private set; }
+        public GameEvents Events { get; }
+        public Spells GetSpells { get; private set; }
+        private Modes _modes;
+
+        private DrawDamage drawDamage;
         public List<Champion> championsWithDodgeSpells;
         public SyndraCore()
         {
-            tittle = "[Syndra]Dark Mage";
-            version = "1.0.0.0";
+            _tittle = "[Syndra]Dark Mage";
+            _version = "1.0.0.0";
             CustomEvents.Game.OnGameLoad += OnLoad;
         }
         private void OnLoad(EventArgs args)
         {
             if (Hero.ChampionName != "Syndra") return;
             Game.PrintChat("<b><font color =\"#FF33D6\">Dark Mage Loaded!</font></b>");
-            GameEvents events = new GameEvents(this);
-            _menu = new SyndraMenu("Dark.Mage", this);
-            _spells = new Spells();
+            var events = new GameEvents(this);
+            GetMenu = new SyndraMenu("Dark.Mage", this);
+            GetSpells = new Spells();
           //  drawDamage = new DrawDamage(this);
             _modes = new SyndraModes();
             Game.OnUpdate += OnUpdate;
@@ -45,26 +43,26 @@ namespace DarkMage
 
         private void Ondraw(EventArgs args)
         {
-            var drawQ = _menu.GetMenu.Item("DQ").GetValue<bool>();
-            var drawW = _menu.GetMenu.Item("DW").GetValue<bool>();
-            var drawE = _menu.GetMenu.Item("DE").GetValue<bool>();
-            var drawR = _menu.GetMenu.Item("DR").GetValue<bool>();
-            var drawOrb = _menu.GetMenu.Item("DO").GetValue<bool>();
-            var drawOrbText = _menu.GetMenu.Item("DST").GetValue<bool>();
+            var drawQ = GetMenu.GetMenu.Item("DQ").GetValue<bool>();
+            var drawW = GetMenu.GetMenu.Item("DW").GetValue<bool>();
+            var drawE = GetMenu.GetMenu.Item("DE").GetValue<bool>();
+            var drawR = GetMenu.GetMenu.Item("DR").GetValue<bool>();
+            var drawOrb = GetMenu.GetMenu.Item("DO").GetValue<bool>();
+            var drawOrbText = GetMenu.GetMenu.Item("DST").GetValue<bool>();
             if (ObjectManager.Player.IsDead)
             {
                 return;
             }
-            if(_spells.getQ.IsReady()&&drawQ)
-            Render.Circle.DrawCircle(ObjectManager.Player.Position, _spells.getQ.Range, System.Drawing.Color.DarkCyan, 2);
-            if (_spells.getW.IsReady() && drawW)
-                Render.Circle.DrawCircle(ObjectManager.Player.Position, _spells.getW.Range, System.Drawing.Color.DarkCyan, 2);
-            if (_spells.getE.IsReady() && drawE)
-                Render.Circle.DrawCircle(ObjectManager.Player.Position, _spells.getE.Range, System.Drawing.Color.DarkCyan, 2);
-            if (_spells.getR.IsReady() && drawR)
-                Render.Circle.DrawCircle(ObjectManager.Player.Position, _spells.getR.Range, System.Drawing.Color.DarkCyan, 2);
+            if(GetSpells.GetQ.IsReady()&&drawQ)
+            Render.Circle.DrawCircle(ObjectManager.Player.Position, GetSpells.GetQ.Range, System.Drawing.Color.DarkCyan, 2);
+            if (GetSpells.GetW.IsReady() && drawW)
+                Render.Circle.DrawCircle(ObjectManager.Player.Position, GetSpells.GetW.Range, System.Drawing.Color.DarkCyan, 2);
+            if (GetSpells.GetE.IsReady() && drawE)
+                Render.Circle.DrawCircle(ObjectManager.Player.Position, GetSpells.GetE.Range, System.Drawing.Color.DarkCyan, 2);
+            if (GetSpells.GetR.IsReady() && drawR)
+                Render.Circle.DrawCircle(ObjectManager.Player.Position, GetSpells.GetR.Range, System.Drawing.Color.DarkCyan, 2);
             if(drawOrb)
-            foreach (Vector3 b in _spells.getOrbs.GetOrbs())
+            foreach (var b in GetSpells.GetOrbs.GetOrbs())
             {
                 Render.Circle.DrawCircle(b, 50, System.Drawing.Color.DarkRed, 2);
                 var wts = Drawing.WorldToScreen(Hero.Position);
@@ -73,7 +71,7 @@ namespace DarkMage
             }
             if (drawOrbText)
             {
-                string orbsTotal = "Active Orbs R : " + (_spells.getOrbs.GetOrbs().Count + 4);
+                var orbsTotal = "Active Orbs R : " + (GetSpells.GetOrbs.GetOrbs().Count + 4);
                 Drawing.DrawText(0, 200, System.Drawing.Color.Yellow, orbsTotal);
             }
            

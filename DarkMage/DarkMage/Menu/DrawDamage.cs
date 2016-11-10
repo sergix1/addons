@@ -2,6 +2,7 @@
 using LeagueSharp.Common;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,39 +20,62 @@ namespace DarkMage
 
         private void Ondraw(EventArgs args)
         {
+            var Width = 103;
+            var Height = 8;
+            var XOffset = 10;
+            var YOffset = 20;
             float QDamage = 0, WDamage = 0, EDamage = 0, RDamage = 0;
+            //Based on Sebby's Damage Draw.
             foreach (var tar in HeroManager.Enemies.Where(x => !x.IsDead))
             {
-                if (core.GetSpells.getQ.IsReady()) QDamage = core.GetSpells.getQ.GetDamage(tar);
-                if (core.GetSpells.getW.IsReady()) WDamage = core.GetSpells.getW.GetDamage(tar);
-                if (core.GetSpells.getE.IsReady()) EDamage = core.GetSpells.getE.GetDamage(tar);
-                if (core.GetSpells.getR.IsReady()) RDamage = core.GetSpells.RDamage(tar);
+                if (core.GetSpells.GetQ.IsReady()) QDamage = core.GetSpells.GetQ.GetDamage(tar);
+                if (core.GetSpells.GetW.IsReady()) WDamage = core.GetSpells.GetW.GetDamage(tar);
+                if (core.GetSpells.GetE.IsReady()) EDamage = core.GetSpells.GetE.GetDamage(tar);
+                if (core.GetSpells.GetR.IsReady()) RDamage = core.GetSpells.RDamage(tar);
                 float TotalSpellDamage = QDamage + WDamage + EDamage + RDamage;
                 if (tar.IsHPBarRendered && tar.Position.IsOnScreen())
                 {
                     var percentHealthAfterDamage = Math.Max(0, tar.Health - TotalSpellDamage) / tar.MaxHealth;
+                    var barPos = tar.HPBarPosition;
+                    var yPos = barPos.Y + YOffset;
+                    var xPosDamage = barPos.X + XOffset + Width * percentHealthAfterDamage;
+                    var xPosCurrentHp = barPos.X + XOffset + Width * tar.Health / tar.MaxHealth;
+                    var pos1 = barPos.X + XOffset + (107 * percentHealthAfterDamage);
+                    float differenceInHP = xPosCurrentHp - xPosDamage;
                     var HpPos = tar.HPBarPosition;
                     float currentXPos= HpPos.X;
-                    if(RDamage!=0)
+
+
+                   float  QdmgDraw=0, WdmgDraw=0, EdmgDraw=0, RdmgDraw=0;
+                    if (QDamage!=0)
+                        QdmgDraw = (QDamage / TotalSpellDamage);
+
+                    if (WDamage!=0)
+                        WdmgDraw = (WDamage/ TotalSpellDamage);
+
+                    if (EDamage!=0)
+                        EdmgDraw = (EDamage / TotalSpellDamage);
+
+                    if (RDamage!=0)
+                        RdmgDraw = (RDamage / TotalSpellDamage);
+                    for (var i = 0; i < differenceInHP; i++)
                     {
-                        Drawing.DrawLine(currentXPos , HpPos.Y, currentXPos + RDamage, HpPos.Y, 5, System.Drawing.Color.Red);
-                        currentXPos += RDamage;
+                        if (QDamage!=0 && i < QdmgDraw * differenceInHP)
+                            Drawing.DrawLine(pos1 + i, yPos, pos1 + i, yPos + Height, 1, System.Drawing.Color.Cyan);
+                        else if (WDamage!=0 && i < (QdmgDraw + WdmgDraw) * differenceInHP)
+                            Drawing.DrawLine(pos1 + i, yPos, pos1 + i, yPos + Height, 1, System.Drawing.Color.OrangeRed);
+                        else if (EDamage != 0 && i < (QdmgDraw + WdmgDraw + EdmgDraw) * differenceInHP)
+                            Drawing.DrawLine(pos1 + i, yPos, pos1 + i, yPos + Height, 1, System.Drawing.Color.OrangeRed);
+                        else if (RDamage != 0 && i < (QdmgDraw + WdmgDraw + EdmgDraw + RdmgDraw) * differenceInHP)
+                            Drawing.DrawLine(pos1 + i, yPos, pos1 + i, yPos + Height, 1, System.Drawing.Color.Red);
+
+
                     }
-                    if (WDamage != 0)
+                    if (core.GetSpells.RDamage(tar) >= tar.Health)
                     {
-                        Drawing.DrawLine(currentXPos, HpPos.Y, currentXPos+ WDamage, HpPos.Y, 5, System.Drawing.Color.BlueViolet);
-                        currentXPos += WDamage;
+                        Drawing.DrawText(HpPos.X,HpPos.Y-20,Color.CornflowerBlue,"Kill With R");
                     }
-                     if(EDamage!=0)
-                    {
-                        Drawing.DrawLine(currentXPos, HpPos.Y, currentXPos +EDamage, HpPos.Y, 5, System.Drawing.Color.Yellow);
-                        currentXPos += EDamage;
-                    }
-                     if(QDamage!=0)
-                    {
-                        Drawing.DrawLine(currentXPos, HpPos.Y,currentXPos + QDamage, HpPos.Y, 5, System.Drawing.Color.AliceBlue);
-                        currentXPos += QDamage;
-                    }
+
                 }
             }
         }

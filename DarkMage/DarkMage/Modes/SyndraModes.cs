@@ -23,11 +23,11 @@ namespace DarkMage
             if (useQ)
                 core.GetSpells.CastQ();
             if (useW)
-                core.GetSpells.castW();
+                core.GetSpells.CastW();
             if (useE)
-                core.GetSpells.castE();
+                core.GetSpells.CastE();
             if (useR)
-                core.GetSpells.castR(core);
+                core.GetSpells.CastR(core);
             base.Combo(core);
         }
         public override void Harash(SyndraCore core)
@@ -38,26 +38,46 @@ namespace DarkMage
             if (useQ)
                 core.GetSpells.CastQ();
             if (useW)
-                core.GetSpells.castW();
+                core.GetSpells.CastW();
             if (useE)
-                core.GetSpells.castE();
+                core.GetSpells.CastE();
             base.Harash(core);
         }
-        bool QE;
+        bool QE,AutoQE;
         public override void Keys(SyndraCore core)
         {
-            if (core.GetSpells.getQ.IsReady() && core.GetSpells.getE.IsReady())
+            if (core.GetSpells.GetQ.IsReady() && core.GetSpells.GetE.IsReady())
             {
                 QE = false;
+                AutoQE = false;
             }
             if (core.GetMenu.GetMenu.Item("QEkey").GetValue<KeyBind>().Active)
             {
                 if (!QE)
                 {
                     var gameCursor = Game.CursorPos;
-                    core.GetSpells.getQ.Cast(core.Hero.Position.Extend(Game.CursorPos, core.GetSpells.getQ.Range));
-                    Utility.DelayAction.Add(500 + Game.Ping, () => core.GetSpells.getE.Cast(gameCursor));
+                    core.GetSpells.GetQ.Cast(core.Hero.Position.Extend(Game.CursorPos, core.GetSpells.GetQ.Range));
+                    Utility.DelayAction.Add(500 + Game.Ping, () => core.GetSpells.GetE.Cast(gameCursor));
                     QE = true;
+                }
+            }
+            if (core.GetMenu.GetMenu.Item("AUTOQE").GetValue<KeyBind>().Active)
+            {
+                if (!AutoQE)
+                {
+                    var qeRange = core.GetSpells.GetE.Range + 500;
+                    var qeTarget = TargetSelector.GetTarget(qeRange, TargetSelector.DamageType.Magical);
+                    if (qeTarget != null)
+                    {
+                        var predpos = Prediction.GetPrediction(qeTarget, 700);
+                        if (predpos.UnitPosition.Distance(core.Hero.Position) < qeRange)
+                        {
+                            var ballPos = core.Hero.Position.Extend(qeTarget.Position, core.GetSpells.GetQ.Range);
+                            core.GetSpells.GetQ.Cast(ballPos);
+                            Utility.DelayAction.Add(500 + Game.Ping, () => core.GetSpells.GetE.Cast(ballPos));
+                            AutoQE = true;
+                        }
+                    }
                 }
             }
             base.Keys(core);
@@ -65,7 +85,7 @@ namespace DarkMage
         public override void LastHit(SyndraCore core)
         {
 
-
+            //Last hit with q when u cant kill minion with aa.
             base.LastHit(core);
         }
         public override void Laneclear(SyndraCore core)
@@ -79,17 +99,17 @@ namespace DarkMage
                 var minionQ =
     MinionManager.GetMinions(
                     core.Hero.Position,
-                     core.GetSpells.getQ.Range,
+                     core.GetSpells.GetQ.Range,
                      MinionTypes.All,
                      MinionTeam.Enemy,
                      MinionOrderTypes.MaxHealth);
                 if (minionQ != null)
                 {
-                    var QfarmPos = core.GetSpells.getQ.GetCircularFarmLocation(minionQ);
+                    var QfarmPos = core.GetSpells.GetQ.GetCircularFarmLocation(minionQ);
                     if (QfarmPos.Position.IsValid())
                         if (QfarmPos.MinionsHit >= 2)
                         {
-                            core.GetSpells.getQ.Cast(QfarmPos.Position);
+                            core.GetSpells.GetQ.Cast(QfarmPos.Position);
                         }
                 }
             }
@@ -98,18 +118,18 @@ namespace DarkMage
                 var minionW =
 MinionManager.GetMinions(
     core.Hero.Position,
-     core.GetSpells.getW.Range,
+     core.GetSpells.GetW.Range,
      MinionTypes.All,
      MinionTeam.Enemy,
      MinionOrderTypes.MaxHealth);
                 if (minionW != null)
                 {
-                    var WfarmPos = core.GetSpells.getQ.GetCircularFarmLocation(minionW);
+                    var WfarmPos = core.GetSpells.GetQ.GetCircularFarmLocation(minionW);
                     if (WfarmPos.Position.IsValid())
                     {
                         if (WfarmPos.MinionsHit >= 3)
                         {
-                            core.GetSpells.castWToPos(WfarmPos.Position);
+                            core.GetSpells.CastWToPos(WfarmPos.Position);
                         }
                     }
                 }
@@ -128,15 +148,15 @@ MinionManager.GetMinions(
                 var minionQ =
     MinionManager.GetMinions(
                     core.Hero.Position,
-                     core.GetSpells.getQ.Range,
+                     core.GetSpells.GetQ.Range,
                      MinionTypes.All,
                      MinionTeam.Neutral,
                      MinionOrderTypes.MaxHealth);
                 if (minionQ != null)
                 {
-                    var QfarmPos = core.GetSpells.getQ.GetCircularFarmLocation(minionQ);
+                    var QfarmPos = core.GetSpells.GetQ.GetCircularFarmLocation(minionQ);
                     if (QfarmPos.Position.IsValid())
-                            core.GetSpells.getQ.Cast(QfarmPos.Position);
+                            core.GetSpells.GetQ.Cast(QfarmPos.Position);
                         
                 }
             }
@@ -145,16 +165,16 @@ MinionManager.GetMinions(
                 var minionW =
 MinionManager.GetMinions(
     core.Hero.Position,
-     core.GetSpells.getW.Range,
+     core.GetSpells.GetW.Range,
      MinionTypes.All,
      MinionTeam.Neutral,
      MinionOrderTypes.MaxHealth);
                 if (minionW != null)
                 {
-                    var WfarmPos = core.GetSpells.getQ.GetCircularFarmLocation(minionW);
+                    var WfarmPos = core.GetSpells.GetQ.GetCircularFarmLocation(minionW);
                     if (WfarmPos.Position.IsValid())
                     {
-                            core.GetSpells.castWToPos(WfarmPos.Position);
+                            core.GetSpells.CastWToPos(WfarmPos.Position);
                         
                     }
                 }
@@ -164,17 +184,17 @@ MinionManager.GetMinions(
                 var minionE =
 MinionManager.GetMinions(
     core.Hero.Position,
-     core.GetSpells.getQ.Range,
+     core.GetSpells.GetQ.Range,
      MinionTypes.All,
      MinionTeam.Neutral,
      MinionOrderTypes.MaxHealth);
                 if(minionE!=null)
-                foreach (Vector3 pos in core.GetSpells.getOrbs.GetOrbs())
+                foreach (Vector3 pos in core.GetSpells.GetOrbs.GetOrbs())
                 {
                     var result = minionE.Where(x => x.Position.Distance(pos) < 50);
                     if (result != null)
                     {
-                        core.GetSpells.getE.Cast(pos);
+                        core.GetSpells.GetE.Cast(pos);
                     }
                 }
                 base.Jungleclear(core);

@@ -34,12 +34,19 @@ namespace DarkMage
         };
         public void loadNotRSpells(SyndraCore core)
         {
-            foreach (String s in DontRSpellList)
+
+            foreach (var tar in HeroManager.Enemies)
             {
-                var result=s.Split('-');
-                var championName = result[0];
-                var championSpell = result[1];
-                listChampions.Add(new Champion(stringToSpell(championSpell),championName));
+                foreach (var s in DontRSpellList)
+                {
+                    var result = s.Split('-');
+                    var championName = result[0];
+                    if (tar.ChampionName.ToLower() == championName.ToLower())
+                    {
+                        var championSpell = result[1];
+                        listChampions.Add(new Champion(stringToSpell(championSpell), championName));
+                    }
+                }
             }
             core.championsWithDodgeSpells = listChampions;   
         }
@@ -77,20 +84,6 @@ namespace DarkMage
             }
             return SpellSlot.Unknown;
         }
-        public String SpellSlotToString(SpellSlot s)
-        {
-            switch (s)
-            {
-                case SpellSlot.Q:
-                    return "Q";
-                case SpellSlot.W:
-                    return "W";
-                case SpellSlot.E:
-                    return "E";
-                case SpellSlot.R:
-                    return "R";
-            }
-            return "None";
-        }
+   
     }
 }

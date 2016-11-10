@@ -11,143 +11,157 @@ namespace DarkMage
 {
     public class Spells
     {
-        private Spell Q, W, E, R;
-        public Spell getQ { get { return Q; } }
-        public Spell getW { get { return W; } }
-        public Spell getE { get { return E; } }
-        public Spell getR { get { return R; } }
-        OrbManager orbManager;
-        public OrbManager getOrbs { get { return orbManager; } }
+        public Spell GetQ { get; }
+        public Spell GetW { get; }
+        public Spell GetE { get; }
+        public Spell GetR { get; }
+        public OrbManager GetOrbs { get; }
+
         public Spells()
         {
-            orbManager = new OrbManager();
-            Q = new Spell(LeagueSharp.SpellSlot.Q,800);
-            W = new Spell(LeagueSharp.SpellSlot.W, 925);
-            E = new Spell(SpellSlot.E, 700);
-            R = new Spell(SpellSlot.R, 675);
-            Q.SetSkillshot(0.6f, 125f, float.MaxValue, false, SkillshotType.SkillshotCircle);
-            W.SetSkillshot(0.25f, 140f, 1600f, false, SkillshotType.SkillshotCircle);
-            E.SetSkillshot(0.25f, (float)(45 * 0.5), 2500f, false, SkillshotType.SkillshotCone);
+            GetOrbs = new OrbManager();
+            GetQ = new Spell(LeagueSharp.SpellSlot.Q, 800);
+            GetW = new Spell(LeagueSharp.SpellSlot.W, 925);
+            GetE = new Spell(SpellSlot.E, 700);
+            GetR = new Spell(SpellSlot.R, 675);
+            GetQ.SetSkillshot(0.6f, 125f, float.MaxValue, false, SkillshotType.SkillshotCircle);
+            GetW.SetSkillshot(0.25f, 140f, 1600f, false, SkillshotType.SkillshotCircle);
+            GetE.SetSkillshot(0.25f, (float) (45*0.5), 2500f, false, SkillshotType.SkillshotCone);
         }
+
         public bool CastQ()
         {
-            if (Q.IsReady())
-                {
-                var qTarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
-                return Q.CastIfWillHit(qTarget, 0,false);
+            if (!GetQ.IsReady()) return false;
+            var qTarget = TargetSelector.GetTarget(GetQ.Range, TargetSelector.DamageType.Magical);
+            if (qTarget != null)
+            {
+                var predictQ=GetQ.GetPrediction(qTarget, true);
+                if (predictQ.Hitchance >= HitChance.High)
+                    return GetQ.Cast(predictQ.CastPosition);
             }
             return false;
         }
-        public bool castW()
+        public bool CastW()
         {
-            if (W.IsReady())
+            if (!GetW.IsReady()) return false;
+            var wTarget = TargetSelector.GetTarget(GetW.Range, TargetSelector.DamageType.Magical);
+            if (wTarget == null) return false;
+            if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState == 1 && GetW.IsReady())
             {
-                var wTarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
-                if (wTarget != null)
-                    if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState == 1 && W.IsReady())
-                    {
-                        var orb = orbManager.GetOrbToGrab((int)W.Range);
-                        if (orb != null)
-                            W.Cast(orb);
-                    }
-                    else if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState != 1 && W.IsReady())
-                    {
-                        if (getOrbs.WObject(false) != null)
-                        {
-                            W.From = getOrbs.WObject(false).ServerPosition;
-                            W.CastIfWillHit(wTarget, 0, false);
-                            return true;
-                        }
-                    }
+                var orb = GetOrbs.GetOrbToGrab((int) GetW.Range);
+                if (orb == null) return false;
+                GetW.Cast(orb);
             }
-                return false;
-            
-        }
-               public bool castWToPos(Vector2 pos)
-        {
-            if (W.IsReady())
+            else if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState != 1 && GetW.IsReady())
             {
-                    if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState == 1 && W.IsReady())
+                if (GetOrbs.WObject(false) == null) return false;
+                GetW.From = GetOrbs.WObject(false).ServerPosition;
+                GetW.Cast(wTarget, true);
+                return true;
+            }
+            return false;
+
+        }
+
+        public bool CastWToPos(Vector2 pos)
+        {
+            if (GetW.IsReady())
+            {
+                if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState == 1 && GetW.IsReady())
+                {
+                    var orb = GetOrbs.GetOrbToGrab((int) GetW.Range);
+                    if (orb != null)
+                        GetW.Cast(orb);
+                }
+                else if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState != 1 && GetW.IsReady())
+                {
+                    if (GetOrbs.WObject(false) != null)
                     {
-                        var orb = orbManager.GetOrbToGrab((int)W.Range);
-                        if (orb != null)
-                            W.Cast(orb);
+                        GetW.From = GetOrbs.WObject(false).ServerPosition;
+                        GetW.Cast(pos);
+                        return true;
                     }
-                    else if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState != 1 && W.IsReady())
-                    {
-                        if (getOrbs.WObject(false) != null)
-                        {
-                            W.From = getOrbs.WObject(false).ServerPosition;
-                            W.Cast(pos);
-                            return true;
-                        }
-                    }
+                }
             }
             return false;
         }
-      
-        public bool castE()
+
+        public bool CalcE(Vector3 initialPoint , Vector3 finalPoint)
         {
-            if (E.IsReady())
+
+            for (var i = 0; i <= 500; i += 10)
             {
-                foreach (Vector3 orb in getOrbs.GetOrbs())
+                var result = initialPoint.Extend(finalPoint, i);
+                if (result.GetEnemiesInRange(10)!=null) return true;
+
+            }
+            return false;
+        }
+        public bool CastE()
+        {
+            if (!GetE.IsReady()) return false;
+            foreach (var orb in GetOrbs.GetOrbs())
+            {
+                foreach (var tar in HeroManager.Enemies)
                 {
-                    foreach (Obj_AI_Base tar in HeroManager.Enemies)
+                    //500 extended range.
+                    if (GetE.IsInRange(orb))
                     {
-                        if (orb.Distance(tar.Position) <= 50)
+                        var finalBallPos = HeroManager.Player.Position.Extend(orb, 500);
+
+                        if (CalcE(orb, finalBallPos))
                         {
-                            if (tar.Distance(HeroManager.Player.Position) <= E.Range)
-                            {
-                                E.Cast(orb);
-                            }
+                            GetE.Cast(orb);
                         }
                     }
                 }
             }
             return false;
-           
+
         }
-        public bool castR(SyndraCore core)
+
+        public bool CastR(SyndraCore core)
         {
-            if (R.IsReady())
+            if (GetR.IsReady())
             {
-                var rTarget = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Magical);
+                var rTarget = TargetSelector.GetTarget(GetR.Range, TargetSelector.DamageType.Magical);
                 if (rTarget != null)
                 {
-                    
-                    if(castRCheck(rTarget,core))
-                    if (NotKilleableWithOtherSpells(rTarget))
-                    {
-                            float totalDamageR = RDamage(rTarget);
-                        if (rTarget.Health <= totalDamageR)
+
+                    if (CastRCheck(rTarget, core))
+                        if (NotKilleableWithOtherSpells(rTarget))
                         {
-                            R.Cast(rTarget);
+                            var totalDamageR = RDamage(rTarget);
+                            if (rTarget.Health <= totalDamageR)
+                            {
+                                GetR.Cast(rTarget);
+                            }
                         }
-                    }
                 }
             }
             return false;
         }
+
         public float RDamage(Obj_AI_Hero target)
         {
-            float damagePerBall = (R.GetDamage(target) / 3);
-            float totalDamageR = R.GetDamage(target) + damagePerBall * getOrbs.GetOrbs().Count;
+            float damagePerBall = (GetR.GetDamage(target)/3);
+            float totalDamageR = GetR.GetDamage(target) + damagePerBall*GetOrbs.GetOrbs().Count;
             return totalDamageR;
         }
-        public bool castRCheck(Obj_AI_Hero target,SyndraCore core)
+
+        public bool CastRCheck(Obj_AI_Hero target, SyndraCore core)
         {
-            var checkZhoniaMenu =  core.GetMenu.GetMenu.Item("DONTRZHONYA").GetValue<bool>();
-            if(checkZhoniaMenu)
+            var checkZhoniaMenu = core.GetMenu.GetMenu.Item("DONTRZHONYA").GetValue<bool>();
+            if (checkZhoniaMenu)
             {
                 //Zhonias lol
-                var zhonyaName = "ZhonyasHourglass";
+                const string zhonyaName = "ZhonyasHourglass";
                 SpellSlot slot;
-                for (int i =1;i<=6;i++)
+                for (var i = 1; i <= 6; i++)
                 {
                     slot = core.Events.intToSpellSlot(i);
                     if (target.GetSpell(slot).Name == zhonyaName)
                     {
-                        Console.WriteLine("hEY PEPE");
                         if (target.GetSpell(slot).IsReady()) return false;
                     }
                 }
@@ -156,39 +170,87 @@ namespace DarkMage
             {
                 return false;
             }
-            // if(core.Events.listChampions!=null)
-            Console.WriteLine("Hey buddy");
-            foreach (Champion tar in core.events.listChampions)
+            foreach (var tar in core.championsWithDodgeSpells)
             {
-              var checkFirst = core.GetMenu.GetMenu.Item(tar.Name+"-"+core.Events.SpellSlotToString(tar.SpellSlot)).GetValue<bool>();
+
+
+                var tarslo = tar.SpellSlot;
+
+                var result = tar.Name + "-" + SpellSlotToString(tarslo);
+                var checkFirst = core.GetMenu.GetMenu.Item(result).GetValue<bool>();
                 if (checkFirst)
-                if (target.ChampionName == tar.Name)
-                {
-                    if(core.GetMenu.GetMenu.Item(target.ChampionName).GetValue<bool>())
-                    return tar.CastRToDat();
-                }
+                    if (target.ChampionName == tar.Name)
+                    {
+                        if (core.GetMenu.GetMenu.Item(target.ChampionName).GetValue<bool>())
+                            return tar.CastRToDat();
+                    }
             }
-            return  core.GetMenu.GetMenu.Item(target.ChampionName).GetValue<bool>();
-     
+            return core.GetMenu.GetMenu.Item(target.ChampionName).GetValue<bool>();
+
         }
+
         private bool NotKilleableWithOtherSpells(Obj_AI_Hero target)
         {
-            if (Q.IsReady() && Q.IsKillable(target))
+            if (GetQ.IsReady() && GetQ.IsKillable(target))
             {
                 CastQ();
                 return false;
             }
-            if (W.IsReady() && W.IsKillable(target))
+            if (GetW.IsReady() && GetW.IsKillable(target))
             {
-                castW();
+                CastW();
                 return false;
             }
-            if (E.IsReady() && E.IsKillable(target))
+            if (GetE.IsReady() && GetE.IsKillable(target))
             {
-                castE();
+                CastE();
                 return false;
             }
             return true;
+        }
+
+        public string SpellSlotToString(SpellSlot s)
+        {
+            switch (s)
+            {
+                case SpellSlot.Q:
+                    return "Q";
+                case SpellSlot.W:
+                    return "W";
+                case SpellSlot.E:
+                    return "E";
+                case SpellSlot.R:
+                    return "R";
+                case SpellSlot.Unknown:
+                    break;
+                case SpellSlot.Summoner1:
+                    break;
+                case SpellSlot.Summoner2:
+                    break;
+                case SpellSlot.Item1:
+                    break;
+                case SpellSlot.Item2:
+                    break;
+                case SpellSlot.Item3:
+                    break;
+                case SpellSlot.Item4:
+                    break;
+                case SpellSlot.Item5:
+                    break;
+                case SpellSlot.Item6:
+                    break;
+                case SpellSlot.Trinket:
+                    break;
+                case SpellSlot.Recall:
+                    break;
+                case SpellSlot.OathSworn:
+                    break;
+                case SpellSlot.CapturePoint:
+                    break;
+                default:
+                    break;
+            }
+            return "None";
         }
     }
 }

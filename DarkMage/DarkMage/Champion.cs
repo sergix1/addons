@@ -10,45 +10,47 @@ namespace DarkMage
 {
    public class Champion
     {
-        private SpellSlot spellslot;
-        private String name;
-        public String Name => name;
-        public SpellSlot SpellSlot => spellslot;
-        public Obj_AI_Hero hero;
-        bool InvunerableSpellReady;
+        public string Name { get; }
+        public SpellSlot SpellSlot { get; }
+        public Obj_AI_Hero Hero { get; private set; }
+        public bool InvunerableSpellReady { get; private set; }
+
         public bool CastRToDat()
         {
             return !InvunerableSpellReady;
         }
-        public Champion(SpellSlot spell,String name)
+        public Champion(SpellSlot spell,string name)
         {
-            this.spellslot = spell;
-            this.name = name;
+            this.SpellSlot = spell;
+            this.Name = name;
+            LoadHero();
             Game.OnUpdate += OnUpdate;
-            loadHero();
         }
-        public void loadHero()
+        public void LoadHero()
         {
-            foreach(Obj_AI_Hero tar in HeroManager.Enemies)
+            foreach(var tar in HeroManager.Enemies)
             {
-                if(tar.ChampionName.ToLower()==name.ToLower())
+                if(tar.ChampionName.ToLower()==Name.ToLower())
                 {
-                    hero = tar;
+                    Hero = tar;
                     break;
                 }
             }
         }
         private void OnUpdate(EventArgs args)
         {
-          //  Console.WriteLine(spellslot);
-          // if(hero.GetSpell(spellslot).IsReady())
-           // {
-             //   InvunerableSpellReady = true;
-           // }
-           //else
-           // {
+            if (Hero.IsDead) return;
+            var spell = Hero.GetSpell(SpellSlot);
+            if (!(spell.CooldownExpires - Game.Time > 0))
+            {
+                Console.WriteLine("Spell Ready");
+                InvunerableSpellReady = true;
+            }
+            else
+            {
+                Console.WriteLine(Hero.GetSpell(SpellSlot).Cooldown); 
                 InvunerableSpellReady = false;
-           // }
+            }
         }
     }
 }

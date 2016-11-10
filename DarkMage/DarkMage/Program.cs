@@ -10,7 +10,7 @@ namespace DarkMage
     {
         static void Main(string[] args)
         {
-            new SyndraCore();
+            var syndraCore = new SyndraCore();
         }
     }
 }

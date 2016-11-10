@@ -16,7 +16,6 @@ C:\Users\sergi\Documents\Visual Studio 2015\Projects\DarkMage\DarkMage\obj\Debug
 C:\Users\sergi\Documents\GitHub\addons\DarkMage\DarkMage\bin\Debug\DarkMage.exe.config
 C:\Users\sergi\Documents\GitHub\addons\DarkMage\DarkMage\obj\Debug\DarkMage.exe
 C:\Users\sergi\Documents\GitHub\addons\DarkMage\DarkMage\obj\Debug\DarkMage.pdb
-C:\Users\sergi\Documents\GitHub\addons\DarkMage\DarkMage\obj\Debug\DarkMage.csprojResolveAssemblyReference.cache
 C:\Users\sergi\Documents\GitHub\addons\DarkMage\DarkMage\bin\Debug\DarkMage.exe
 C:\Users\sergi\Documents\GitHub\addons\DarkMage\DarkMage\bin\Debug\DarkMage.pdb
 C:\Users\sergi\Documents\GitHub\addons\DarkMage\DarkMage\bin\Debug\LeagueSharp.Common.dll
@@ -29,3 +28,4 @@ C:\Users\sergi\Documents\GitHub\addons\DarkMage\DarkMage\bin\Debug\Newtonsoft.Js
 C:\Users\sergi\Documents\GitHub\addons\DarkMage\DarkMage\bin\Debug\LeagueSharp.Common.pdb
 C:\Users\sergi\Documents\GitHub\addons\DarkMage\DarkMage\bin\Debug\LeagueSharp.Data.pdb
 C:\Users\sergi\Documents\GitHub\addons\DarkMage\DarkMage\bin\Debug\clipper_library.pdb
+C:\Users\sergi\Documents\GitHub\addons\DarkMage\DarkMage\obj\Debug\DarkMage.csprojResolveAssemblyReference.cache
