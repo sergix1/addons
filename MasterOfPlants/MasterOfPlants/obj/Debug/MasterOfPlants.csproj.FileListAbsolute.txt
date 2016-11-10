@@ -1,0 +1,16 @@
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\bin\Release\MasterOfPlants.exe.config
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\obj\Debug\MasterOfPlants.csprojResolveAssemblyReference.cache
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\bin\Release\MasterOfPlants.exe
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\bin\Release\MasterOfPlants.pdb
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\bin\Release\LeagueSharp.Common.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\bin\Release\LeagueSharp.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\bin\Release\SharpDX.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\bin\Release\LeagueSharp.Data.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\bin\Release\clipper_library.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\bin\Release\Newtonsoft.Json.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\bin\Release\LeagueSharp.Common.pdb
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\bin\Release\LeagueSharp.Data.pdb
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\bin\Release\clipper_library.pdb
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\obj\Debug\MasterOfPlants.exe
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfPlants\MasterOfPlants\obj\Debug\MasterOfPlants.pdb
