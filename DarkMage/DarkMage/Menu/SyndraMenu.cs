@@ -41,6 +41,7 @@ namespace DarkMage
                 _drawingMenu.AddItem(new MenuItem("DW", "Draw W Range").SetValue(true));
                 _drawingMenu.AddItem(new MenuItem("DE", "Draw E Range").SetValue(true));
                 _drawingMenu.AddItem(new MenuItem("DR", "Draw R Range").SetValue(true));
+                _drawingMenu.AddItem(new MenuItem("DTD", "Draw Total Damage").SetValue(true));
                 _drawingMenu.AddItem(new MenuItem("DO", "Draw Orbs").SetValue(true));
                 _drawingMenu.AddItem(new MenuItem("DST", "Draw Sphere Text").SetValue(true));
             }

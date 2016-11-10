@@ -20,6 +20,8 @@ namespace DarkMage
 
         private void Ondraw(EventArgs args)
         {
+            var  DrawTotalDamage = core.GetMenu.GetMenu.Item("DTD").GetValue<bool>();
+            if (!DrawTotalDamage) return;
             var Width = 103;
             var Height = 8;
             var XOffset = 10;
