@@ -36,28 +36,36 @@ namespace DarkMage
             if (qTarget != null)
             {
                 var predictQ=GetQ.GetPrediction(qTarget, true);
-                if (predictQ.Hitchance >= HitChance.High)
+                if (predictQ.Hitchance >= HitChance.VeryHigh)
                     return GetQ.Cast(predictQ.CastPosition);
             }
             return false;
         }
+
+ 
+
         public bool CastW()
         {
             if (!GetW.IsReady()) return false;
             var wTarget = TargetSelector.GetTarget(GetW.Range, TargetSelector.DamageType.Magical);
             if (wTarget == null) return false;
-            if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState == 1 && GetW.IsReady())
+            if(GetW.IsInRange(wTarget))
+                Console.WriteLine(HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState);
+            if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState ==1&& GetW.IsReady())
             {
                 var orb = GetOrbs.GetOrbToGrab((int) GetW.Range);
                 if (orb == null) return false;
                 GetW.Cast(orb);
             }
-            else if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState != 1 && GetW.IsReady())
+            else if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState != 1 && HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState != 1 && GetW.IsReady())
             {
-                if (GetOrbs.WObject(false) == null) return false;
-                GetW.From = GetOrbs.WObject(false).ServerPosition;
-                GetW.Cast(wTarget, true);
-                return true;
+                if (GetW.IsInRange(wTarget))
+                {
+                        if (GetOrbs.WObject(false) == null) return false;
+                    GetW.From = GetOrbs.WObject(false).ServerPosition;
+                    GetW.Cast(wTarget.Position, true);
+                    return true;
+                }
             }
             return false;
 
@@ -86,30 +94,34 @@ namespace DarkMage
             return false;
         }
 
-        public bool CalcE(Vector3 initialPoint , Vector3 finalPoint)
+        public bool CalcE(Vector3 initialPoint , Vector3 finalPoint,Obj_AI_Hero hero)
         {
 
             for (var i = 0; i <= 500; i += 10)
             {
                 var result = initialPoint.Extend(finalPoint, i);
-                if (result.GetEnemiesInRange(10)!=null) return true;
+                if (hero.Distance(result)<=50) return true;
 
             }
             return false;
         }
         public bool CastE()
         {
+
+            var ETarget = TargetSelector.GetTarget(GetQ.Range, TargetSelector.DamageType.Magical);
+            if(ETarget!=null)
             if (!GetE.IsReady()) return false;
+           if(GetOrbs.WObject(false) == null)
             foreach (var orb in GetOrbs.GetOrbs())
             {
                 foreach (var tar in HeroManager.Enemies)
                 {
-                    //500 extended range.
+                    //500 extended range. 
                     if (GetE.IsInRange(orb))
                     {
                         var finalBallPos = HeroManager.Player.Position.Extend(orb, 500);
 
-                        if (CalcE(orb, finalBallPos))
+                        if (CalcE(orb, finalBallPos,ETarget))
                         {
                             GetE.Cast(orb);
                         }

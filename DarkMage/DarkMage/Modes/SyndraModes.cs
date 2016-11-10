@@ -57,7 +57,7 @@ namespace DarkMage
                 {
                     var gameCursor = Game.CursorPos;
                     core.GetSpells.GetQ.Cast(core.Hero.Position.Extend(Game.CursorPos, core.GetSpells.GetQ.Range));
-                    Utility.DelayAction.Add(500 + Game.Ping, () => core.GetSpells.GetE.Cast(gameCursor));
+                    Utility.DelayAction.Add(250 + Game.Ping, () => core.GetSpells.GetE.Cast(gameCursor));
                     QE = true;
                 }
             }
@@ -65,16 +65,16 @@ namespace DarkMage
             {
                 if (!AutoQE)
                 {
-                    var qeRange = core.GetSpells.GetE.Range + 500;
+                    var qeRange = core.GetSpells.GetQ.Range + 500;
                     var qeTarget = TargetSelector.GetTarget(qeRange, TargetSelector.DamageType.Magical);
                     if (qeTarget != null)
                     {
                         var predpos = Prediction.GetPrediction(qeTarget, 700);
-                        if (predpos.UnitPosition.Distance(core.Hero.Position) < qeRange)
+                        if (predpos.UnitPosition.Distance(core.Hero.Position) < qeRange)    
                         {
                             var ballPos = core.Hero.Position.Extend(qeTarget.Position, core.GetSpells.GetQ.Range);
                             core.GetSpells.GetQ.Cast(ballPos);
-                            Utility.DelayAction.Add(500 + Game.Ping, () => core.GetSpells.GetE.Cast(ballPos));
+                            Utility.DelayAction.Add(250 + Game.Ping, () => core.GetSpells.GetE.Cast(ballPos));
                             AutoQE = true;
                         }
                     }

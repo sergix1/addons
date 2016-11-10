@@ -34,7 +34,7 @@ namespace DarkMage
             var events = new GameEvents(this);
             GetMenu = new SyndraMenu("Dark.Mage", this);
             GetSpells = new Spells();
-          //  drawDamage = new DrawDamage(this);
+            drawDamage = new DrawDamage(this);
             _modes = new SyndraModes();
             Game.OnUpdate += OnUpdate;
             LeagueSharp.Drawing.OnDraw += Ondraw;
