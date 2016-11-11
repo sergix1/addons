@@ -107,7 +107,7 @@ namespace DarkMage
                 return true;
             return false;
         }
-        public bool CastE()
+        public bool CastE(SyndraCore core)
         {
 
             var eTarget = TargetSelector.GetTarget(GetQ.Range, TargetSelector.DamageType.Magical);
@@ -115,9 +115,9 @@ namespace DarkMage
             if (!GetE.IsReady()) return false;
             if (GetW.IsReady()) return false;
             if (GetOrbs.WObject(false) != null) return false;
-            for (var index = 0; index < GetOrbs.GetOrbs().Count; index++)
+            for (var index = 0; index < core.GetOrbs.Count; index++)
             {
-                var orb = GetOrbs.GetOrbs()[index];
+                var orb = core.GetOrbs[index];
                 if(orb.IsValid())
                 if (!GetE.IsInRange(orb)) continue;
                 for (var i = 0; i < HeroManager.Enemies.Count; i++)
@@ -144,9 +144,9 @@ namespace DarkMage
 
             if (rTarget == null) return false;
             if (!CastRCheck(rTarget, core)) return false;
-            if (!NotKilleableWithOtherSpells(rTarget)) return false;
+            if (!NotKilleableWithOtherSpells(rTarget,core)) return false;
 
-            var totalDamageR = RDamage(rTarget);
+            var totalDamageR = RDamage(rTarget,core);
             if (rTarget.Health <= totalDamageR)
             {
                 GetR.Cast(rTarget);
@@ -154,10 +154,10 @@ namespace DarkMage
             return false;
         }
 
-        public float RDamage(Obj_AI_Hero target)
+        public float RDamage(Obj_AI_Hero target,SyndraCore core)
         {
             float damagePerBall = (GetR.GetDamage(target)/3);
-            float totalDamageR = GetR.GetDamage(target) + damagePerBall*GetOrbs.GetOrbs().Count;
+            float totalDamageR = GetR.GetDamage(target) + damagePerBall*core.GetOrbs.Count;
             return totalDamageR;
         }
         public float RDamage(Obj_AI_Hero target,int NSpeheres)
@@ -198,7 +198,7 @@ namespace DarkMage
 
         }
 
-        private bool NotKilleableWithOtherSpells(Obj_AI_Hero target)
+        private bool NotKilleableWithOtherSpells(Obj_AI_Hero target,SyndraCore core)
         {
             if (GetQ.IsReady() && GetQ.IsKillable(target))
             {
@@ -212,7 +212,7 @@ namespace DarkMage
             }
             if (GetE.IsReady() && GetE.IsKillable(target))
             {
-                CastE();
+                CastE(core);
                 return false;
             }
             return true;

@@ -34,7 +34,7 @@ namespace DarkMage
                 if (core.GetSpells.GetQ.IsReady()) qDamage = core.GetSpells.GetQ.GetDamage(tar);
                 if (core.GetSpells.GetW.IsReady()) wDamage = core.GetSpells.GetW.GetDamage(tar);
                 if (core.GetSpells.GetE.IsReady()) eDamage = core.GetSpells.GetE.GetDamage(tar);
-                if (core.GetSpells.GetR.IsReady()) rDamage = core.GetSpells.RDamage(tar);
+                if (core.GetSpells.GetR.IsReady()) rDamage = core.GetSpells.RDamage(tar,core);
                 var totalSpellDamage = qDamage + wDamage + eDamage + rDamage;
                 if (!tar.IsHPBarRendered || !tar.Position.IsOnScreen()) continue;
                 var percentHealthAfterDamage = Math.Max(0, tar.Health - totalSpellDamage) / tar.MaxHealth;
@@ -74,15 +74,15 @@ namespace DarkMage
 
                 }
                 if(core.GetSpells.GetR.IsReady())
-                if (core.GetSpells.RDamage(tar) >= tar.Health)
+                if (core.GetSpells.RDamage(tar,core) >= tar.Health)
                 {
                     Drawing.DrawText(hpPos.X,hpPos.Y-20,Color.CornflowerBlue,"Kill With R");
                 }
                 else
                 {
-                    var countCurrentSpheres = core.GetSpells.GetOrbs.GetOrbs().Count;
+                    var countCurrentSpheres = core.GetOrbs.Count;
                     var totalPossibleSpheres = 7;
-                    for (var i = core.GetSpells.GetOrbs.GetOrbs().Count; i < totalPossibleSpheres; i++)
+                    for (var i = countCurrentSpheres; i < totalPossibleSpheres; i++)
                     {
                         if (core.GetSpells.RDamage(tar, i) >= tar.Health&& i-countCurrentSpheres >0)
                         {

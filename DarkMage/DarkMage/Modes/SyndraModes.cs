@@ -25,7 +25,7 @@ namespace DarkMage
             if (useW)
                 core.GetSpells.CastW();
             if (useE)
-                core.GetSpells.CastE();
+                core.GetSpells.CastE(core);
             if (useR)
                 core.GetSpells.CastR(core);
             base.Combo(core);
@@ -40,7 +40,7 @@ namespace DarkMage
             if (useW)
                 core.GetSpells.CastW();
             if (useE)
-                core.GetSpells.CastE();
+                core.GetSpells.CastE(core);
             base.Harash(core);
         }
         bool QE,AutoQE;
@@ -209,7 +209,7 @@ MinionManager.GetMinions(
      MinionOrderTypes.MaxHealth);
                 if(minionE!=null)
                     Console.WriteLine(minionE.FirstOrDefault().Name);
-                foreach (Vector3 pos in core.GetSpells.GetOrbs.GetOrbs())
+                foreach (Vector3 pos in core.GetOrbs)
                 {
                     var result = minionE.Where(x => x.Position.Distance(pos) < 50);
                     if (result != null)
