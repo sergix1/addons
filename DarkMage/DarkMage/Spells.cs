@@ -54,7 +54,6 @@ namespace DarkMage
             if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState ==1&& GetW.IsReady())
             {
                 var orb = GetOrbs.GetOrbToGrab((int) GetW.Range);
-                if (orb == null) return false;
                 GetW.Cast(orb);
             }
             else if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState != 1 && HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState != 1 && GetW.IsReady())
@@ -70,7 +69,6 @@ namespace DarkMage
             return false;
 
         }
-
         public bool CastWToPos(Vector2 pos)
         {
             if (GetW.IsReady())
@@ -78,8 +76,7 @@ namespace DarkMage
                 if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState == 1 && GetW.IsReady())
                 {
                     var orb = GetOrbs.GetOrbToGrab((int) GetW.Range);
-                    if (orb != null)
-                        GetW.Cast(orb);
+                    GetW.Cast(orb);
                 }
                 else if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState != 1 && GetW.IsReady())
                 {
@@ -93,7 +90,6 @@ namespace DarkMage
             }
             return false;
         }
-
         public bool CalcE(Vector3 initialPoint , Vector3 finalPoint,Obj_AI_Hero hero)
         {
 
@@ -108,23 +104,23 @@ namespace DarkMage
         public bool CastE()
         {
 
-            var ETarget = TargetSelector.GetTarget(GetQ.Range, TargetSelector.DamageType.Magical);
-            if(ETarget!=null)
+            var eTarget = TargetSelector.GetTarget(GetQ.Range, TargetSelector.DamageType.Magical);
+            if(eTarget!=null)
             if (!GetE.IsReady()) return false;
-           if(GetOrbs.WObject(false) == null)
-            foreach (var orb in GetOrbs.GetOrbs())
+            if (GetOrbs.WObject(false) != null) return false;
+            for (var index = 0; index < GetOrbs.GetOrbs().Count; index++)
             {
-                foreach (var tar in HeroManager.Enemies)
+                var orb = GetOrbs.GetOrbs()[index];
+                if (!GetE.IsInRange(orb)) continue;
+                for (var i = 0; i < HeroManager.Enemies.Count; i++)
                 {
+                    var tar = HeroManager.Enemies[i];
                     //500 extended range. 
-                    if (GetE.IsInRange(orb))
-                    {
-                        var finalBallPos = HeroManager.Player.Position.Extend(orb, 500);
+                    var finalBallPos = HeroManager.Player.Position.Extend(orb, 500);
 
-                        if (CalcE(orb, finalBallPos,ETarget))
-                        {
-                            GetE.Cast(orb);
-                        }
+                    if (CalcE(orb, finalBallPos, eTarget))
+                    {
+                        GetE.Cast(orb);
                     }
                 }
             }
@@ -134,22 +130,18 @@ namespace DarkMage
 
         public bool CastR(SyndraCore core)
         {
-            if (GetR.IsReady())
-            {
-                var rTarget = TargetSelector.GetTarget(GetR.Range, TargetSelector.DamageType.Magical);
-                if (rTarget != null)
-                {
+            if (!GetR.IsReady()) return false;
 
-                    if (CastRCheck(rTarget, core))
-                        if (NotKilleableWithOtherSpells(rTarget))
-                        {
-                            var totalDamageR = RDamage(rTarget);
-                            if (rTarget.Health <= totalDamageR)
-                            {
-                                GetR.Cast(rTarget);
-                            }
-                        }
-                }
+            var rTarget = TargetSelector.GetTarget(GetR.Range, TargetSelector.DamageType.Magical);
+
+            if (rTarget == null) return false;
+            if (!CastRCheck(rTarget, core)) return false;
+            if (!NotKilleableWithOtherSpells(rTarget)) return false;
+
+            var totalDamageR = RDamage(rTarget);
+            if (rTarget.Health <= totalDamageR)
+            {
+                GetR.Cast(rTarget);
             }
             return false;
         }
@@ -160,7 +152,12 @@ namespace DarkMage
             float totalDamageR = GetR.GetDamage(target) + damagePerBall*GetOrbs.GetOrbs().Count;
             return totalDamageR;
         }
-
+        public float RDamage(Obj_AI_Hero target,int NSpeheres)
+        {
+            float damagePerBall = (GetR.GetDamage(target) / 3);
+            float totalDamageR = GetR.GetDamage(target) + damagePerBall * NSpeheres;
+            return totalDamageR;
+        }
         public bool CastRCheck(Obj_AI_Hero target, SyndraCore core)
         {
             var checkZhoniaMenu = core.GetMenu.GetMenu.Item("DONTRZHONYA").GetValue<bool>();
@@ -168,14 +165,11 @@ namespace DarkMage
             {
                 //Zhonias lol
                 const string zhonyaName = "ZhonyasHourglass";
-                SpellSlot slot;
                 for (var i = 1; i <= 6; i++)
                 {
-                    slot = core.Events.intToSpellSlot(i);
-                    if (target.GetSpell(slot).Name == zhonyaName)
-                    {
-                        if (target.GetSpell(slot).IsReady()) return false;
-                    }
+                    var slot = core.Events.intToSpellSlot(i);
+                    if (target.GetSpell(slot).Name != zhonyaName) continue;
+                    if (target.GetSpell(slot).IsReady()) return false;
                 }
             }
             if (target.IsInvulnerable)
@@ -184,18 +178,13 @@ namespace DarkMage
             }
             foreach (var tar in core.championsWithDodgeSpells)
             {
-
-
                 var tarslo = tar.SpellSlot;
-
                 var result = tar.Name + "-" + SpellSlotToString(tarslo);
                 var checkFirst = core.GetMenu.GetMenu.Item(result).GetValue<bool>();
-                if (checkFirst)
-                    if (target.ChampionName == tar.Name)
-                    {
-                        if (core.GetMenu.GetMenu.Item(target.ChampionName).GetValue<bool>())
-                            return tar.CastRToDat();
-                    }
+                if (!checkFirst) continue;
+                if (target.ChampionName != tar.Name) continue;
+                if (core.GetMenu.GetMenu.Item(target.ChampionName).GetValue<bool>())
+                    return tar.CastRToDat();
             }
             return core.GetMenu.GetMenu.Item(target.ChampionName).GetValue<bool>();
 

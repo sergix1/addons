@@ -10,7 +10,7 @@ namespace DarkMage
 {
    public class SyndraMenu : Menu
     {
-        LeagueSharp.Common.Menu _comboMenu,_drawingMenu, _harassMenu, _keyMenu,_targetsRMe, _dontRIfSpellReady,_farmMenu,_laneClearMenu,_JungleClearMenu;
+        private LeagueSharp.Common.Menu _comboMenu,_drawingMenu, _harassMenu, _keyMenu,_targetsRMe, _dontRIfSpellReady,_farmMenu,_laneClearMenu,_JungleClearMenu;
         public SyndraMenu(string menuName, SyndraCore core) : base(menuName, core)
         {
         }
@@ -41,7 +41,7 @@ namespace DarkMage
                 _drawingMenu.AddItem(new MenuItem("DW", "Draw W Range").SetValue(true));
                 _drawingMenu.AddItem(new MenuItem("DE", "Draw E Range").SetValue(true));
                 _drawingMenu.AddItem(new MenuItem("DR", "Draw R Range").SetValue(true));
-                _drawingMenu.AddItem(new MenuItem("DTD", "Draw Total Damage").SetValue(true));
+                _drawingMenu.AddItem(new MenuItem("DTD", "Draw Total Damage").SetValue(true).SetTooltip("Q=Blue W=Orange E=Green Red=R"));
                 _drawingMenu.AddItem(new MenuItem("DO", "Draw Orbs").SetValue(true));
                 _drawingMenu.AddItem(new MenuItem("DST", "Draw Sphere Text").SetValue(true));
             }
@@ -103,6 +103,7 @@ namespace DarkMage
             {
                 _keyMenu.AddItem(new MenuItem("QEkey", "Q+E To Mouse Key").SetValue(new KeyBind('T', KeyBindType.Press)));
                 _keyMenu.AddItem(new MenuItem("AUTOQE", "AUTO Q+E Stun target").SetValue(new KeyBind('X', KeyBindType.Press)));
+                _keyMenu.AddItem(new MenuItem("HKey", "Harass Key").SetValue(new KeyBind('Z', KeyBindType.Toggle)));
             }
         }
         public override void CloseMenu()

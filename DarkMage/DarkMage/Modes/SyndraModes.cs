@@ -51,6 +51,15 @@ namespace DarkMage
                 QE = false;
                 AutoQE = false;
             }
+            if (core.GetMenu.GetMenu.Item("Hkey").GetValue<KeyBind>().Active)
+            {
+                if (!HeroManager.Player.CanAttack)
+                {
+                    core.GetSpells.CastQ();
+                }
+
+
+            }
             if (core.GetMenu.GetMenu.Item("QEkey").GetValue<KeyBind>().Active)
             {
                 if (!QE)
