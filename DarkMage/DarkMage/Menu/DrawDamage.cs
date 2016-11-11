@@ -81,12 +81,12 @@ namespace DarkMage
                 else
                 {
                     var countCurrentSpheres = core.GetSpells.GetOrbs.GetOrbs().Count;
-                    var totalPossibleSpheres = 8;
+                    var totalPossibleSpheres = 7;
                     for (var i = core.GetSpells.GetOrbs.GetOrbs().Count; i < totalPossibleSpheres; i++)
                     {
-                        if (core.GetSpells.RDamage(tar, i) >= tar.Health)
+                        if (core.GetSpells.RDamage(tar, i) >= tar.Health&& i-countCurrentSpheres >0)
                         {
-                            Drawing.DrawText(hpPos.X, hpPos.Y - 20, Color.CornflowerBlue, "Cast+"+ (countCurrentSpheres - i) + "spheres to Kill With R and ");
+                            Drawing.DrawText(hpPos.X, hpPos.Y - 20, Color.CornflowerBlue, "Cast "+ (i-countCurrentSpheres ) + " spheres to Kill With R and ");
                         }
                     }
                 }

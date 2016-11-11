@@ -50,7 +50,6 @@ namespace DarkMage
             var wTarget = TargetSelector.GetTarget(GetW.Range, TargetSelector.DamageType.Magical);
             if (wTarget == null) return false;
             if(GetW.IsInRange(wTarget))
-                Console.WriteLine(HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState);
             if (HeroManager.Player.Spellbook.GetSpell(SpellSlot.W).ToggleState ==1&& GetW.IsReady())
             {
                 var orb = GetOrbs.GetOrbToGrab((int) GetW.Range);
@@ -61,7 +60,7 @@ namespace DarkMage
                 if (GetW.IsInRange(wTarget))
                 {
                         if (GetOrbs.WObject(false) == null) return false;
-                    GetW.From = GetOrbs.WObject(false).ServerPosition;
+                    GetW.From = GetOrbs.WObject(false).ServerPosition;                   
                     GetW.Cast(wTarget.Position, true);
                     return true;
                 }
@@ -93,12 +92,22 @@ namespace DarkMage
         public bool CalcE(Vector3 initialPoint , Vector3 finalPoint,Obj_AI_Hero hero)
         {
 
-            for (var i = 0; i <= 500; i += 10)
-            {
-                var result = initialPoint.Extend(finalPoint, i);
-                if (hero.Distance(result)<=50) return true;
+            /*  for (var i = 25; i <= 500; i += 10)
+              {
+                  var result = initialPoint.Extend(finalPoint, i);
 
-            }
+                  if (hero.Distance(result)<=50) return true;
+              }*/
+            var ePred = GetE.GetPrediction(hero);
+               if (ePred.Hitchance >= HitChance.High)
+               {
+                   var playerToCP = HeroManager.Player.Distance(ePred.CastPosition);
+               
+                       var ballFinalPos = HeroManager.Player.ServerPosition.Extend(initialPoint, playerToCP);
+                       if (ballFinalPos.Distance(ePred.CastPosition) < 50)
+                           return true;
+                   
+               }
             return false;
         }
         public bool CastE()
