@@ -104,7 +104,7 @@ namespace DarkMage
                 _keyMenu.AddItem(new MenuItem("QEkey", "Q+E To Mouse Key").SetValue(new KeyBind('T', KeyBindType.Press)));
                 _keyMenu.AddItem(new MenuItem("AUTOQE", "AUTO Q+E Stun target").SetValue(new KeyBind('X', KeyBindType.Press)));
                 _keyMenu.AddItem(new MenuItem("HKey", "Harass Toggle").SetValue(new KeyBind('Z', KeyBindType.Toggle)));
-                _keyMenu.AddItem(new MenuItem("HKey", "Harass Toggle").SetValue(new KeyBind('Z', KeyBindType.Toggle)));
+                _keyMenu.AddItem(new MenuItem("RKey", "R to best target").SetValue(new KeyBind('R', KeyBindType.Press)));
             }
         }
         public override void CloseMenu()

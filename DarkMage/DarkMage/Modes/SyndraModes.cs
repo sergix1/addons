@@ -51,6 +51,16 @@ namespace DarkMage
                 QE = false;
                 AutoQE = false;
             }
+            if (core.GetMenu.GetMenu.Item("RKey").GetValue<KeyBind>().Active)
+            {
+                if (core.GetSpells.GetR.IsReady())
+                {
+                    var rTarget = TargetSelector.GetTarget(core.GetSpells.GetR.Range, TargetSelector.DamageType.Magical);
+                    if(rTarget!=null)
+                    core.GetSpells.GetR.Cast(rTarget);
+                }
+
+            }
             if (core.GetMenu.GetMenu.Item("HKey").GetValue<KeyBind>().Active)
             {
                // if (!HeroManager.Player.CanAttack)
