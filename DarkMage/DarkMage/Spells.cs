@@ -99,15 +99,12 @@ namespace DarkMage
                   if (hero.Distance(result)<=50) return true;
               }*/
             var ePred = GetE.GetPrediction(hero);
-               if (ePred.Hitchance >= HitChance.High)
-               {
-                   var playerToCP = HeroManager.Player.Distance(ePred.CastPosition);
+            if (ePred.Hitchance < HitChance.High) return false;
+            var pt = HeroManager.Player.Distance(ePred.CastPosition);
                
-                       var ballFinalPos = HeroManager.Player.ServerPosition.Extend(initialPoint, playerToCP);
-                       if (ballFinalPos.Distance(ePred.CastPosition) < 50)
-                           return true;
-                   
-               }
+            var ballFinalPos = HeroManager.Player.ServerPosition.Extend(initialPoint, pt);
+            if (ballFinalPos.Distance(ePred.CastPosition) < 50)
+                return true;
             return false;
         }
         public bool CastE()
