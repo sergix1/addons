@@ -118,6 +118,7 @@ namespace DarkMage
             for (var index = 0; index < GetOrbs.GetOrbs().Count; index++)
             {
                 var orb = GetOrbs.GetOrbs()[index];
+                if(orb.IsValid())
                 if (!GetE.IsInRange(orb)) continue;
                 for (var i = 0; i < HeroManager.Enemies.Count; i++)
                 {

@@ -9,7 +9,7 @@ namespace DarkMage
     {
         public static  string[] DontRSpellList = new[]
         {
-      "Fizz-E","Vladimir-W","Ekkko-R","Zed-R","Yi-Q","Zilean-R","Shaco-R","Kalista-R","Lissandra-R","Kindred-R","Kayle-R","Taric-R"
+      "Fizz-E","Vladimir-W","Ekkko-R","Zed-R","Yi-Q","Zilean-R","Shaco-R","Kalista-R","Lissandra-R","Kindred-R","Kayle-R","Taric-R","Fiora-W"
         };
     }
     public class GameEvents
