@@ -113,6 +113,7 @@ namespace DarkMage
             var eTarget = TargetSelector.GetTarget(GetQ.Range, TargetSelector.DamageType.Magical);
             if(eTarget!=null)
             if (!GetE.IsReady()) return false;
+            if (GetW.IsReady()) return false;
             if (GetOrbs.WObject(false) != null) return false;
             for (var index = 0; index < GetOrbs.GetOrbs().Count; index++)
             {
