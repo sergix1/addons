@@ -62,17 +62,18 @@ namespace DarkMage
                     rdmgDraw = (rDamage / totalSpellDamage);
                 for (var i = 0; i < differenceInHp; i++)
                 {
-                    if (qDamage!=0 && i < rdmgDraw * differenceInHp)
+                    if (rDamage!=0 && i < rdmgDraw * differenceInHp)
                         Drawing.DrawLine(pos1 + i, yPos, pos1 + i, yPos + height, 1, System.Drawing.Color.Red);
-                    else if (wDamage!=0 && i < (rdmgDraw + edmgDraw) * differenceInHp)
+                    else if (eDamage!=0 && i < (rdmgDraw + edmgDraw) * differenceInHp)
                         Drawing.DrawLine(pos1 + i, yPos, pos1 + i, yPos + height, 1, System.Drawing.Color.OrangeRed);
-                    else if (eDamage != 0 && i < (rdmgDraw + edmgDraw + wdmgDraw) * differenceInHp)
+                    else if (wDamage != 0 && i < (rdmgDraw + edmgDraw + wdmgDraw) * differenceInHp)
                         Drawing.DrawLine(pos1 + i, yPos, pos1 + i, yPos + height, 1, System.Drawing.Color.Yellow);
-                    else if (rDamage != 0 && i < (rdmgDraw + edmgDraw + wdmgDraw + qdmgDraw) * differenceInHp)
+                    else if (qDamage != 0 && i < (rdmgDraw + edmgDraw + wdmgDraw + qdmgDraw) * differenceInHp)
                         Drawing.DrawLine(pos1 + i, yPos, pos1 + i, yPos + height, 1, System.Drawing.Color.Aqua);
 
 
                 }
+                if(core.GetSpells.GetR.IsReady())
                 if (core.GetSpells.RDamage(tar) >= tar.Health)
                 {
                     Drawing.DrawText(hpPos.X,hpPos.Y-20,Color.CornflowerBlue,"Kill With R");
