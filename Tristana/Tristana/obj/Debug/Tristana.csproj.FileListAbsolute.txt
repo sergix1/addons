@@ -1,0 +1,16 @@
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\bin\Debug\Tristana.exe.config
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\obj\Debug\Tristana.csprojResolveAssemblyReference.cache
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\bin\Debug\Tristana.exe
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\bin\Debug\Tristana.pdb
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\bin\Debug\LeagueSharp.Common.dll
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\bin\Debug\LeagueSharp.dll
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\bin\Debug\SharpDX.dll
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\bin\Debug\SharpDX.Direct3D9.dll
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\bin\Debug\LeagueSharp.Data.dll
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\bin\Debug\clipper_library.dll
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\bin\Debug\Newtonsoft.Json.dll
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\bin\Debug\LeagueSharp.Common.pdb
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\bin\Debug\LeagueSharp.Data.pdb
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\bin\Debug\clipper_library.pdb
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\obj\Debug\Tristana.exe
+c:\users\sergi\documents\visual studio 2015\Projects\Tristana\Tristana\obj\Debug\Tristana.pdb
