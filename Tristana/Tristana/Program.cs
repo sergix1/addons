@@ -81,7 +81,7 @@ namespace Tristana
             {
                 foreach (var ai in HeroManager.Enemies)
                 {
-                    Emenu.AddItem(new MenuItem("ET" + ai.ChampionName, ai.ChampionName).SetValue(true));
+                    TargetEMenu.AddItem(new MenuItem("ET" + ai.ChampionName, ai.ChampionName).SetValue(true));
                 }
             }
             Emenu =new LeagueSharp.Common.Menu("EMenu","EMenu");
