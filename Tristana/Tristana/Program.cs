@@ -19,7 +19,7 @@ namespace Tristana
         public  static Obj_AI_Hero Hero => HeroManager.Player;
        public static Menu menu,combo,misc,drawing,orbwalkerMenu, targetSelectorMenu;
        public static Orbwalking.Orbwalker Orb;
-       public const string Name = "Tristana";
+       public const string Name = "Tristana - Hawk Mode";
         static void Main(string[] args)
         {
             CustomEvents.Game.OnGameLoad += OnLoad;
