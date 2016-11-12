@@ -182,7 +182,6 @@ namespace Tristana
            }
 
         }
-      static bool PreviousAA=false;
        private static void Combo()
        {
           var useQ = menu.Item("CQ").GetValue<bool>();
@@ -191,7 +190,7 @@ namespace Tristana
            if (ETarget != null)
            {
                 
-               if (E.IsReady() && useE&& PreviousAA)
+               if (E.IsReady() && useE)
                {
                    E.Cast(ETarget);
 
@@ -204,7 +203,7 @@ namespace Tristana
            }
            else
            {
-               PreviousAA = false;
+               
            }
        }
 
@@ -268,7 +267,7 @@ namespace Tristana
                 if (target2 == null) return;
                 if (target.Name == target2.Name)
                 {
-                    PreviousAA = true;
+                   
                 }
             }
         }
