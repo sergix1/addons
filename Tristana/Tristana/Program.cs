@@ -122,14 +122,12 @@ namespace Tristana
 
                    TotalEDamage = GetEDmg(target, (GetTristanaEBuff(target)) + n1);
                    float TotalDamage = TotalRDamage + TotalEDamage;
-
-
-                   drawTotalDamage(target, TotalDamage);
+                   drawTotalDamage(target, TotalDamage,TotalRDamage);
                }
            }
        }
 
-        private static void drawTotalDamage(Obj_AI_Hero tar, float totalSpellDamage)
+        private static void drawTotalDamage(Obj_AI_Hero tar, float totalSpellDamage,float TotalRDamage)
         {
             const int width = 103;
             const int height = 8;
@@ -142,15 +140,29 @@ namespace Tristana
             var xPosCurrentHp = barPos.X + xOffset + width * tar.Health / tar.MaxHealth;
             var pos1 = barPos.X + xOffset + (107 * percentHealthAfterDamage);
             var differenceInHp = xPosCurrentHp - xPosDamage;
+            var hpPos = tar.HPBarPosition;
             for (var i = 0; i < differenceInHp; i++)
             {
                     Drawing.DrawLine(pos1 + i, yPos, pos1 + i, yPos + height, 1, System.Drawing.Color.OrangeRed);
 
 
-
+            
             }
+            if (tar.Health <= TotalRDamage)
+            {
+                Drawing.DrawText(hpPos.X, hpPos.Y - 20, System.Drawing.Color.CornflowerBlue, "Kill With R");
+            }
+            Drawing.DrawText(hpPos.X, hpPos.Y - 40, System.Drawing.Color.CornflowerBlue, "Total AA to Kill " + getTotalAAToKill(tar) );
+
         }
 
+       public static int getTotalAAToKill(Obj_AI_Base target)
+       {
+            var critPercent = Hero.Crit;
+           int result = (int)(target.Health/Hero.GetAutoAttackDamage(target));
+           if (result <= 0) return 1;
+           return result;
+       }
         public static void SetRanges()
        {
             var up = 7 * (Hero.Level - 1);
