@@ -159,7 +159,7 @@ namespace Tristana
        public static int getTotalAAToKill(Obj_AI_Base target)
        {
             var critPercent = Hero.Crit;
-           int result = (int)(target.Health/Hero.GetAutoAttackDamage(target));
+           int result = (int)(target.Health/Hero.GetAutoAttackDamage(target,true));
            return result <= 0 ? 1 : result;
        }
         public static void SetRanges()
