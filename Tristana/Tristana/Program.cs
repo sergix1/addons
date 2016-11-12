@@ -160,8 +160,7 @@ namespace Tristana
        {
             var critPercent = Hero.Crit;
            int result = (int)(target.Health/Hero.GetAutoAttackDamage(target));
-           if (result <= 0) return 1;
-           return result;
+           return result <= 0 ? 1 : result;
        }
         public static void SetRanges()
        {
