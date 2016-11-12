@@ -72,11 +72,7 @@ namespace Tristana
             orbwalkerMenu = new LeagueSharp.Common.Menu("Orbwalker", "Orbwalker");
             Orb = new Orbwalking.Orbwalker(orbwalkerMenu);
             targetSelectorMenu = new LeagueSharp.Common.Menu("TargetSelector", "TargetSelector");
-            combo = new LeagueSharp.Common.Menu("Combo", "Combo Menu");
-            {
-                combo.AddItem(new MenuItem("CQ", "Use Q").SetValue(true));
-                combo.AddItem(new MenuItem("CR", "Use R to finish Target").SetValue(true));
-            }
+      
             TargetEMenu = new LeagueSharp.Common.Menu("ETMenu", "Targets");
             {
                 foreach (var ai in HeroManager.Enemies)
@@ -89,7 +85,12 @@ namespace Tristana
                 Emenu.AddItem(new MenuItem("CE", "Use E").SetValue(true));
                Emenu.AddSubMenu(TargetEMenu);
            }
-  
+            combo = new LeagueSharp.Common.Menu("Combo", "Combo Menu");
+            {
+                combo.AddItem(new MenuItem("CQ", "Use Q").SetValue(true));
+                combo.AddSubMenu(Emenu);
+                combo.AddItem(new MenuItem("CR", "Use R to finish Target").SetValue(true));
+            }
             misc = new LeagueSharp.Common.Menu("Misc", "Misc Menu");
             {
                 misc.AddItem(new MenuItem("AG", "Anti Gapcloser").SetValue(true));
