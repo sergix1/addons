@@ -27,8 +27,9 @@ namespace Tristana
 
         private static void OnLoad(EventArgs args)
         {
-            if (Hero.ChampionName != Name) return;
-            
+            if (Hero.ChampionName != "Tristana") return;
+
+
             LoadSpells();
             LoadMenu();
             Orbwalking.AfterAttack += AfterAttack;
