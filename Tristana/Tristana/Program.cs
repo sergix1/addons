@@ -15,7 +15,7 @@ namespace Tristana
    {
 
 
-       public static Spell Q, E, R;
+       public static Spell Q, W,E, R;
         public  static Obj_AI_Hero Hero => HeroManager.Player;
        public static Menu menu,combo,misc,drawing,orbwalkerMenu, targetSelectorMenu;
        public static Orbwalking.Orbwalker Orb;
@@ -60,6 +60,7 @@ namespace Tristana
         public static void LoadSpells()
        {
             Q = new Spell(SpellSlot.Q);
+            W=new Spell(SpellSlot.W,900);
             E = new Spell(SpellSlot.E, 620);
             R = new Spell(SpellSlot.R, 620);
 
@@ -100,9 +101,9 @@ namespace Tristana
            var DrawW = menu.Item("DW").GetValue<bool>();
            var DrawE = menu.Item("DE").GetValue<bool>();
             var DrawTDamage = menu.Item("DDI").GetValue<bool>();
-            if (DrawW)
+            if (DrawW&&W.IsReady() )
                Render.Circle.DrawCircle(ObjectManager.Player.Position, 900, System.Drawing.Color.Yellow, 2);
-           if (DrawE)
+           if (DrawE&&E.IsReady())
                Render.Circle.DrawCircle(ObjectManager.Player.Position, E.Range, System.Drawing.Color.Yellow, 2);
 
            //Draw Damage
