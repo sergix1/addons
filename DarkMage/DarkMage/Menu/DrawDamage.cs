@@ -86,7 +86,8 @@ namespace DarkMage
                     {
                         if (core.GetSpells.RDamage(tar, i) >= tar.Health&& i-countCurrentSpheres >0)
                         {
-                            Drawing.DrawText(hpPos.X, hpPos.Y - 20, Color.CornflowerBlue, "Cast "+ (i-countCurrentSpheres ) + " spheres to Kill With R and ");
+                                Drawing.DrawText(hpPos.X, hpPos.Y - 20, Color.CornflowerBlue, "Cast "+ (i-countCurrentSpheres ) + " spheres to Kill With R and ");
+                            break;
                         }
                     }
                 }

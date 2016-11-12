@@ -65,20 +65,24 @@ namespace DarkMage
 
             Render.Circle.DrawCircle(ObjectManager.Player.Position, GetSpells.GetQ.Range+500, System.Drawing.Color.Red, 2);
             var orbs = GetOrbs;
-            if (drawOrb)
-                foreach (var b in orbs)
-                {
-                    Render.Circle.DrawCircle(b, 50, System.Drawing.Color.DarkRed, 2);
-                    var wts = Drawing.WorldToScreen(Hero.Position);
-                    var wtssxt = Drawing.WorldToScreen(b);
-                    Drawing.DrawLine(wts, wtssxt, 2, System.Drawing.Color.DarkRed);
-                }
-            if (drawOrbText)
+            if (orbs != null)
             {
-                var orbsTotal = "Active Orbs R : " + (orbs.Count + 4);
-                Drawing.DrawText(0, 200, System.Drawing.Color.Yellow, orbsTotal);
+                if (drawOrb)
+                    foreach (var b in orbs)
+                    {
+                        Render.Circle.DrawCircle(b, 50, System.Drawing.Color.DarkRed, 2);
+                        var wts = Drawing.WorldToScreen(Hero.Position);
+                        var wtssxt = Drawing.WorldToScreen(b);
+                        Drawing.DrawLine(wts, wtssxt, 2, System.Drawing.Color.DarkRed);
+                    }
+                if (drawOrbText)
+                {
+
+                    var orbsTotal = "Active Orbs R : " + (orbs.Count + 4);
+                    Drawing.DrawText(0, 200, System.Drawing.Color.Yellow, orbsTotal);
+                }
             }
-           
+
         }
 
         private void OnUpdate(EventArgs args)
