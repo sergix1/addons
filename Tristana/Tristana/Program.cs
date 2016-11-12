@@ -73,14 +73,14 @@ namespace Tristana
             Orb = new Orbwalking.Orbwalker(orbwalkerMenu);
             targetSelectorMenu = new LeagueSharp.Common.Menu("TargetSelector", "TargetSelector");
       
-            TargetEMenu = new LeagueSharp.Common.Menu("ETMenu", "Targets");
+            TargetEMenu = new LeagueSharp.Common.Menu("Targets", "Targets");
             {
                 foreach (var ai in HeroManager.Enemies)
                 {
                     TargetEMenu.AddItem(new MenuItem("ET" + ai.ChampionName, ai.ChampionName).SetValue(true));
                 }
             }
-            Emenu =new LeagueSharp.Common.Menu("EMenu","EMenu");
+            Emenu =new LeagueSharp.Common.Menu("E Menu","EMenu");
            {
                 Emenu.AddItem(new MenuItem("CE", "Use E").SetValue(true));
                Emenu.AddSubMenu(TargetEMenu);
