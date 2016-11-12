@@ -77,18 +77,19 @@ namespace Tristana
                 combo.AddItem(new MenuItem("CQ", "Use Q").SetValue(true));
                 combo.AddItem(new MenuItem("CR", "Use R to finish Target").SetValue(true));
             }
-            Emenu=new LeagueSharp.Common.Menu("EMenu","EMenu");
+            TargetEMenu = new LeagueSharp.Common.Menu("ETMenu", "Targets");
+            {
+                foreach (var ai in HeroManager.Enemies)
+                {
+                    Emenu.AddItem(new MenuItem("ET" + ai.ChampionName, ai.ChampionName).SetValue(true));
+                }
+            }
+            Emenu =new LeagueSharp.Common.Menu("EMenu","EMenu");
            {
                 Emenu.AddItem(new MenuItem("CE", "Use E").SetValue(true));
                Emenu.AddSubMenu(TargetEMenu);
            }
-            TargetEMenu=new LeagueSharp.Common.Menu("ETMenu", "Targets");
-           {
-               foreach (var ai in HeroManager.Enemies)
-               {
-                    Emenu.AddItem(new MenuItem("ET"+ai.ChampionName, ai.ChampionName).SetValue(true));
-                }
-           }
+  
             misc = new LeagueSharp.Common.Menu("Misc", "Misc Menu");
             {
                 misc.AddItem(new MenuItem("AG", "Anti Gapcloser").SetValue(true));
