@@ -17,7 +17,7 @@ namespace Tristana
 
        public static Spell Q, W,E, R;
         public  static Obj_AI_Hero Hero => HeroManager.Player;
-       public static Menu menu,combo,misc,drawing,orbwalkerMenu, targetSelectorMenu;
+       public static Menu menu,combo,misc,drawing,orbwalkerMenu, targetSelectorMenu,Emenu, TargetEMenu;
        public static Orbwalking.Orbwalker Orb;
        public const string Name = "Tristana - Hawk Mode";
         static void Main(string[] args)
@@ -75,9 +75,20 @@ namespace Tristana
             combo = new LeagueSharp.Common.Menu("Combo", "Combo Menu");
             {
                 combo.AddItem(new MenuItem("CQ", "Use Q").SetValue(true));
-                combo.AddItem(new MenuItem("CE", "Use E").SetValue(true));
                 combo.AddItem(new MenuItem("CR", "Use R to finish Target").SetValue(true));
             }
+            Emenu=new LeagueSharp.Common.Menu("EMenu","EMenu");
+           {
+                Emenu.AddItem(new MenuItem("CE", "Use E").SetValue(true));
+               Emenu.AddSubMenu(TargetEMenu);
+           }
+            TargetEMenu=new LeagueSharp.Common.Menu("ETMenu", "Targets");
+           {
+               foreach (var ai in HeroManager.Enemies)
+               {
+                    Emenu.AddItem(new MenuItem("ET"+ai.ChampionName, ai.ChampionName).SetValue(true));
+                }
+           }
             misc = new LeagueSharp.Common.Menu("Misc", "Misc Menu");
             {
                 misc.AddItem(new MenuItem("AG", "Anti Gapcloser").SetValue(true));
@@ -202,12 +213,12 @@ namespace Tristana
            if (ETarget != null)
            {
                 
-               if (E.IsReady() && useE)
+               if (E.IsReady() && useE && TargetECheck(ETarget))
                {
                    E.Cast(ETarget);
 
                }
-               if (Q.IsReady() && useQ && !E.IsReady())
+               if (Q.IsReady() && useQ && (!E.IsReady()||!TargetECheck(ETarget)))
                {
                    Q.Cast();
                }
@@ -219,6 +230,10 @@ namespace Tristana
            }
        }
 
+       public static bool TargetECheck(Obj_AI_Hero tar)
+       {
+           return menu.Item("ET"+tar.ChampionName).GetValue<bool>();
+        }
        public static void CastR()
        {
             //checks
