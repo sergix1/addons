@@ -208,7 +208,6 @@ MinionManager.GetMinions(
      MinionTeam.Neutral,
      MinionOrderTypes.MaxHealth);
                 if(minionE!=null)
-                    Console.WriteLine(minionE.FirstOrDefault().Name);
                 foreach (Vector3 pos in core.GetOrbs)
                 {
                     var result = minionE.Where(x => x.Position.Distance(pos) < 50);
