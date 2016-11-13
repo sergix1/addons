@@ -7,6 +7,7 @@ using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
 using System.Drawing;
+using MasterOfPlants;
 using SebbyLib;
 using Orbwalking = LeagueSharp.Common.Orbwalking;
 
@@ -48,13 +49,17 @@ namespace MasterOfThorns
             var orbWalkerMenu = new Menu("Orbwalker", "Orbwalker");
             Orbwalking.Orbwalker orb = new Orbwalking.Orbwalker(orbWalkerMenu);
             var TargetSelectorMenu = new Menu("TargetSelector", "TargetSelector");
-            
+            var RMenu = new Menu("RMenu", "RMenu");
+            {
+              RMenu.AddItem(new MenuItem("comboR", "Use R to finish the enemy").SetValue(true));
+              RMenu.AddItem(new MenuItem("minEnemys", "Cast if hit")).SetValue(new Slider(1, 1, 5));
+            }
             var comboMenu = new Menu("Combo", "Combo");
             {
                 comboMenu.AddItem(new MenuItem("QC", "Use Q in combo").SetValue(true));
                 comboMenu.AddItem(new MenuItem("WC", "Use W in combo").SetValue(true));
                 comboMenu.AddItem(new MenuItem("EC", "Use E in combo").SetValue(true));
-                comboMenu.AddItem(new MenuItem("comboR", "Use R to finish the enemy").SetValue(true));
+                comboMenu.AddSubMenu(RMenu);
                 comboMenu.AddItem(new MenuItem("Ignite", "Use ignite for kill").SetValue(true));
                 comboMenu.AddItem(new MenuItem("combokey", "Combo key").SetValue(new KeyBind(32, KeyBindType.Press)));
             }
@@ -64,30 +69,29 @@ namespace MasterOfThorns
                 comboMenu.AddItem(new MenuItem("sethQ", "Q hitchance")).SetValue(new Slider(3, 1, 4));
                 comboMenu.AddItem(new MenuItem("sethW", "W hitchance")).SetValue(new Slider(3, 1, 4));
                 comboMenu.AddItem(new MenuItem("sethR", "R hitchance")).SetValue(new Slider(3, 1, 4));
-                comboMenu.AddItem(new MenuItem("sethR", "Passive hitchance")).SetValue(new Slider(3, 1, 4));
             }
-            var comboRMenu = new Menu("RCombokey", "Burst Combo"); 
+            var comboRMenu = new Menu("Burst Combo", "Burst Combo"); 
             {
                 comboRMenu.AddItem(new MenuItem("QrC", "Use Q in combo with R").SetValue(true));
                 comboRMenu.AddItem(new MenuItem("ErC", "Use E in combo with R").SetValue(true));
                 comboRMenu.AddItem(new MenuItem("rcombokey", "RCombo key").SetValue(new KeyBind('X', KeyBindType.Press)));
             }
-            var harrashMenu = new Menu("Harrash", "Harrash");
+            var harrashMenu = new Menu("Harrass", "Harrass");
             {
-                harrashMenu.AddItem(new MenuItem("QH", "Use Q in Harrash").SetValue(true));
-                harrashMenu.AddItem(new MenuItem("WH", "Use W for go out").SetValue(true));
+                harrashMenu.AddItem(new MenuItem("QH", "Use Q in Harrass").SetValue(true));
+                harrashMenu.AddItem(new MenuItem("WH", "Use W in Harass").SetValue(true));
                 harrashMenu.AddItem(new MenuItem("Harrash key", "Harrash key").SetValue(new KeyBind('C', KeyBindType.Press)));
             }
             var ultimateSettingsMenu = new Menu("Ultimate Settings", "Ultimate Settings");
             {
-                ultimateSettingsMenu.AddItem(new MenuItem("minEnemys", "Min. enemys to hit")).SetValue(new Slider(1, 1, 5));
                 ultimateSettingsMenu.AddItem(new MenuItem("Ultimate Key", "Ultimate key").SetValue(new KeyBind('T', KeyBindType.Press)));
             //  UltimateSettingsMenu.AddItem(new MenuItem("useflash", "Use flash").SetValue(true));
             }
             var fleeMenu = new Menu("Flee", "Flee");
             {
                 fleeMenu.AddItem(new MenuItem("fleekey", "Flee key").SetValue(new KeyBind('Z', KeyBindType.Press)));
-                fleeMenu.AddItem(new MenuItem("flee", "Flee only use e"));
+                fleeMenu.AddItem(new MenuItem("WH", "Use W for go out").SetValue(true));
+                fleeMenu.AddItem(new MenuItem("flee", "Flee only use e").SetValue(true));
             }
             var laneclearMenu = new Menu("Laneclear", "Laneclear");
             {
@@ -111,8 +115,7 @@ namespace MasterOfThorns
             }
        */     var drawSettingsMenu = new Menu("Draw Settings", "Draw Settings");
             {
-                drawSettingsMenu.AddItem(new MenuItem("DrawUltimate", "DrawUltimate").SetValue(true));
-                drawSettingsMenu.AddItem(new MenuItem("DrawKilleableText", "Draw Killeable Text").SetValue(true));
+                drawSettingsMenu.AddItem(new MenuItem("DrawDamageIndicator", "Draw Damage Indicator").SetValue(true));
                 drawSettingsMenu.AddItem(new MenuItem("Draw Q Range", "Draw Q Range").SetValue(true));
                 drawSettingsMenu.AddItem(new MenuItem("Draw W Range", "Draw W Range").SetValue(true));
                 drawSettingsMenu.AddItem(new MenuItem("Draw E Range", "Draw E Range").SetValue(true));
@@ -147,25 +150,27 @@ namespace MasterOfThorns
             if (menu.Item("Draw R Range").GetValue<bool>())
                 Render.Circle.DrawCircle(getPlayer().Position,700f, System.Drawing.Color.Blue,2);           
         }
-        
+
+        private DamageIndicator indicator;
         public void load(EventArgs args)
         {
             player = ObjectManager.Player;
             if (player.ChampionName != "Zyra") return;
             Game.PrintChat(getName()+" load good luck ;) " + getVersion());
             loadMenu();
+           indicator = new DamageIndicator(this);
             Drawing.OnDraw += draw;
+
             Game.OnUpdate += update;
         }
     
         public void update(EventArgs args)
         {
             if (getPlayer().IsDead) return;
-            if (base.zyraZombie())  base.getSkills().passiveCast(getMenu().Item("sethQ").GetValue<Slider>().Value);     
             updateModes();
         }
 
-        public  void cast(Obj_AI_Hero target, Spell spell, int h)
+        public  void cast(Obj_AI_Base target, Spell spell, int h)
         {
           // spell.cast
          // OktwCommon.

@@ -52,35 +52,35 @@ namespace MasterOfThorns
             int q = p.getMenu().Item("sethQ").GetValue<Slider>().Value;
        //     Game.PrintChat("q: " + q + " w: " + w + " e: " + min);
             //    if (!useQ && !useW && !useE) return;
-            if (useQ && !useW && !useE)  skills.qCast(minion,q);
-            else if (!useQ && useW && !useE) skills.wCast(minion,w);
-            else if (!useQ && !useW && useE) skills.eCast(minion, min);
+            if (useQ && !useW && !useE)  skills.qCast(minion,q,p);
+            else if (!useQ && useW && !useE) skills.wCast(minion,w,p);
+            else if (!useQ && !useW && useE) skills.eCast(minion, min,p);
             else if (!useQ && useW && useE) 
             {
-                  skills.eCast(minion, min);
+                  skills.eCast(minion, min,p);
                   if (skills.getE().IsReady() && skills.getE().IsInRange(minion))
-                      skills.wCast(minion,w);
+                      skills.wCast(minion,w,p);
             }
             else if (useQ && !useW && useE) 
             {
-                skills.eCast(minion, min);
-                skills.qCast(minion,q);
+                skills.eCast(minion, min,p);
+                skills.qCast(minion,q,p);
             }
             else if (useQ && useW && !useE) 
             {
-                skills.qCast(minion,q);
+                skills.qCast(minion,q,p);
                 if (skills.getQ().IsReady() && skills.getQ().IsInRange(minion))
-                    skills.wCast(minion,w);
+                    skills.wCast(minion,w,p);
             }
             else if (useQ && useW && useE)
             {
-                skills.eCast(minion, min);
+                skills.eCast(minion, min,p);
                 if (skills.getE().IsReady() && skills.getE().IsInRange(minion))
                 {
-                    skills.wCast(minion,w);
-                    Utility.DelayAction.Add(delay, () => skills.qCast(minion,q));
+                    skills.wCast(minion,w,p);
+                    Utility.DelayAction.Add(delay, () => skills.qCast(minion,q,p));
                     if (skills.getQ().IsReady() && skills.getQ().IsInRange(minion))                    
-                        Utility.DelayAction.Add(delay, () => skills.wCast(minion,w));                                    
+                        Utility.DelayAction.Add(delay, () => skills.wCast(minion,w,p));                                    
                 }
             }
             else
@@ -98,37 +98,37 @@ namespace MasterOfThorns
             int w = p.getMenu().Item("sethW").GetValue<Slider>().Value;
          //    Game.PrintChat("min: " + min);
         //    if (!useQ && !useW && !useE) return;
-            if (useQ && !useW && !useE) skills.qCast(minion,q);
-            else if (!useQ && useW && !useE) skills.wCast(minion,w);
-            else if (!useQ && !useW && useE) skills.eCast(minion,min);           
+            if (useQ && !useW && !useE) skills.qCast(minion,q,p);
+            else if (!useQ && useW && !useE) skills.wCast(minion,w,p);
+            else if (!useQ && !useW && useE) skills.eCast(minion,min,p);           
             else if (!useQ && useW && useE) 
             {
-                skills.eCast(minion, min);       
+                skills.eCast(minion, min,p);       
                 if (skills.getE().IsReady() && skills.getE().IsInRange(minion))
-                    skills.wCast(minion,w);
+                    skills.wCast(minion,w,p);
               
             }
             else if (useQ && !useW && useE) 
             {
-                skills.eCast(minion, min);        
-                skills.qCast(minion,q);             
+                skills.eCast(minion, min,p);        
+                skills.qCast(minion,q,p);             
             }
             else if (useQ && useW && !useE) 
             {
-                skills.qCast(minion,q);
+                skills.qCast(minion,q,p);
                 if (skills.getQ().IsReady() && skills.getQ().IsInRange(minion)) 
-                    skills.wCast(minion,w);                
+                    skills.wCast(minion,w,p);                
             }
             else if (useQ && useW && useE)
             {
             //    Game.PrintChat("juhngle: ");
-                skills.eCast(minion, min);
+                skills.eCast(minion, min,p);
                 if (skills.getE().IsReady() && skills.getE().IsInRange(minion))
                 {
-                    skills.wCast(minion,w);                   
-                        Utility.DelayAction.Add(delay, () => skills.qCast(minion,q));
+                    skills.wCast(minion,w,p);                   
+                        Utility.DelayAction.Add(delay, () => skills.qCast(minion,q,p));
                         if (skills.getQ().IsReady() && skills.getQ().IsInRange(minion))                        
-                            Utility.DelayAction.Add(delay, () => skills.wCast(minion,w));                                          
+                            Utility.DelayAction.Add(delay, () => skills.wCast(minion,w,p));                                          
                 }               
             }
             else
@@ -165,14 +165,14 @@ namespace MasterOfThorns
            // Game.PrintChat("haras useQ: "+useQ);
             //    if (!useQ && !useW && !useE) return;
             if (useQ && !useW)
-                skills.qCast(getTarget(),q);
+                skills.qCast(getTarget(),q,p);
             else if (!useQ && useW)
-                skills.wCast(getTarget(),w);
+                skills.wCast(getTarget(),w,p);
             else if (useQ && useW)
             {
-                skills.qCast(getTarget(),q);
+                skills.qCast(getTarget(),q,p);
                 if (skills.getQ().IsReady())
-                    skills.wCast(getTarget(),w);
+                    skills.wCast(getTarget(),w,p);
             }
             else
                 return;     
@@ -204,7 +204,7 @@ namespace MasterOfThorns
         {
             p.cast(this.getTarget(), this.skills.getE(), min);
             if (this.skills.getE().IsReady())
-                this.skills.wCast(target, w);
+                this.skills.wCast(target, w,p);
         }
         public void Qplant(int q , int w)
         {
@@ -215,38 +215,41 @@ namespace MasterOfThorns
             var useQ = p.getMenu().Item("QC").GetValue<bool>();
             var useW = p.getMenu().Item("WC").GetValue<bool>();
             var useE = p.getMenu().Item("EC").GetValue<bool>();
+            var useRkill = p.getMenu().Item("comboR").GetValue<bool>();
             var min = p.getMenu().Item("seth").GetValue<Slider>().Value;
             int q = p.getMenu().Item("sethQ").GetValue<Slider>().Value;
             int w = p.getMenu().Item("sethW").GetValue<Slider>().Value;
+            int r= p.getMenu().Item("sethR").GetValue<Slider>().Value;
+            int minr = p.getMenu().Item("minEnemys").GetValue<Slider>().Value;
             //    if (!useQ && !useW && !useE) return;
-            if (useQ && !useW && !useE)  skills.qCast(getTarget(),q);            
-            else if (!useQ && useW && !useE) skills.wCast(getTarget(),w);             
-            else if (!useQ && !useW && useE) skills.eCast(getTarget(), min);
+            if (useQ && !useW && !useE)  skills.qCast(getTarget(),q,p);            
+            else if (!useQ && useW && !useE) skills.wCast(getTarget(),w,p);             
+            else if (!useQ && !useW && useE) skills.eCast(getTarget(), min,p);
             else if (!useQ && useW && useE)
             {                
         p.cast(this.getTarget(), this.skills.getE(), min);
                 if (skills.getE().IsReady() && skills.getE().IsInRange(getTarget()))
-                    skills.wCast(getTarget(),w); 
+                    skills.wCast(getTarget(),w,p); 
             }
             else if (useQ && !useW && useE) 
             {
                 p.cast(this.getTarget(), this.skills.getE(), min);
-                skills.qCast(getTarget(),q);
+                skills.qCast(getTarget(),q,p);
             }
             else if (useQ && useW && !useE) 
             {
-                skills.qCast(getTarget(),q);
+                skills.qCast(getTarget(),q,p);
                 if (skills.getQ().IsReady() && skills.getQ().IsInRange(getTarget()))
-                    skills.wCast(getTarget(),w); 
+                    skills.wCast(getTarget(),w,p); 
             }
             else if (useQ && useW && useE)
             {
                 p.cast(this.getTarget(), this.skills.getE(), min);
             if (skills.getE().IsReady())
-            skills.wCast(target,w);
-            skills.qCast(target,q);
+            skills.wCast(target,w,p);
+            skills.qCast(target,q,p);
            if(skills.getQ().IsReady())
-             skills.wCast(target,w);
+             skills.wCast(target,w,p);
             /*    skills.eCast(getTarget(), min);
                 if (skills.getE().IsReady() && skills.getE().IsInRange(getTarget()))
                     skills.wCast(getTarget(), w);
@@ -263,7 +266,15 @@ namespace MasterOfThorns
                 //        Utility.DelayAction.Add(delay, () => skills.wCast(getTarget(),w));         
                 
             }
-            else
+            if (useRkill)
+            {
+                if (target.Health <= getSkills().getR().GetDamage(target))
+                {
+                    skills.rCast(target, r, p);
+                }
+            }
+            getSkills().rCastHit(target, minr);
+            
                 return;
         }
 
@@ -280,15 +291,15 @@ namespace MasterOfThorns
             if (useQ && !useE) 
             {
                 p.cast(this.getTarget(), this.skills.getE(), min);
-                skills.rCast(getTarget(),r);
-                skills.qCast(getTarget(),q);
+                skills.rCast(getTarget(),r,p);
+                skills.qCast(getTarget(),q,p);
             }
             else if (!useQ && useE)
             {
-                skills.rCast(getTarget(),r);
+                skills.rCast(getTarget(),r,p);
                 p.cast(this.getTarget(), this.skills.getE(), min);
                 if (skills.getE().IsReady() && skills.getE().IsInRange(getTarget()))
-                    skills.wCast(getTarget(),w);                 
+                    skills.wCast(getTarget(),w,p);                 
             }
             else if (useQ && useE)
             {
@@ -296,12 +307,12 @@ namespace MasterOfThorns
                 p.cast(this.getTarget(), this.skills.getE(), min);
                 if (skills.getE().IsReady() && skills.getE().IsInRange(getTarget()))
                 {
-                    skills.wCast(getTarget(),w);
-                    Utility.DelayAction.Add(delay, () => skills.qCast(getTarget(),q));
+                    skills.wCast(getTarget(),w,p);
+                    Utility.DelayAction.Add(delay, () => skills.qCast(getTarget(),q,p));
                     if (skills.getQ().IsReady() && skills.getQ().IsInRange(getTarget()))
-                        Utility.DelayAction.Add(delay, () => skills.wCast(getTarget(),w));
+                        Utility.DelayAction.Add(delay, () => skills.wCast(getTarget(),w,p));
                 }
-                skills.rCast(getTarget(),r);               
+                skills.rCast(getTarget(),r,p);               
             }
             else
                 return;   
