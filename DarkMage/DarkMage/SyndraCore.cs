@@ -79,7 +79,7 @@ namespace DarkMage
                 if (drawOrbText)
                 {
 
-                    var orbsTotal = "Active Orbs R : " + (orbs.Count + 4);
+                    var orbsTotal = "Active Orbs R : " + (orbs.Count);
                     Drawing.DrawText(0, 200, System.Drawing.Color.Yellow, orbsTotal);
                 }
             }

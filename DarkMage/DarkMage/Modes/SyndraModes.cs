@@ -155,6 +155,7 @@ MinionManager.GetMinions(
             }
             base.Laneclear(core);
         }
+
         public override void Jungleclear(SyndraCore core)
         {
             var useQ = core.GetMenu.GetMenu.Item("JQ").GetValue<bool>();
@@ -165,60 +166,63 @@ MinionManager.GetMinions(
             if (useQ)
             {
                 var minionQ =
-    MinionManager.GetMinions(
-                    core.Hero.Position,
-                     core.GetSpells.GetQ.Range,
-                     MinionTypes.All,
-                     MinionTeam.Neutral,
-                     MinionOrderTypes.MaxHealth);
+                    MinionManager.GetMinions(
+                        core.Hero.Position,
+                        core.GetSpells.GetQ.Range,
+                        MinionTypes.All,
+                        MinionTeam.Neutral,
+                        MinionOrderTypes.MaxHealth);
                 if (minionQ != null)
                 {
                     var QfarmPos = core.GetSpells.GetQ.GetCircularFarmLocation(minionQ);
                     if (QfarmPos.Position.IsValid())
-                            core.GetSpells.GetQ.Cast(QfarmPos.Position);
-                        
+                        core.GetSpells.GetQ.Cast(QfarmPos.Position);
+
                 }
             }
             if (useW)
             {
                 var minionW =
-MinionManager.GetMinions(
-    core.Hero.Position,
-     core.GetSpells.GetW.Range,
-     MinionTypes.All,
-     MinionTeam.Neutral,
-     MinionOrderTypes.MaxHealth);
+                    MinionManager.GetMinions(
+                        core.Hero.Position,
+                        core.GetSpells.GetW.Range,
+                        MinionTypes.All,
+                        MinionTeam.Neutral,
+                        MinionOrderTypes.MaxHealth);
                 if (minionW != null)
                 {
                     var WfarmPos = core.GetSpells.GetQ.GetCircularFarmLocation(minionW);
                     if (WfarmPos.Position.IsValid())
                     {
-                            core.GetSpells.CastWToPos(WfarmPos.Position);
-                        
+                        core.GetSpells.CastWToPos(WfarmPos.Position);
+
                     }
                 }
             }
             if (useE)
             {
                 var minionE =
-MinionManager.GetMinions(
-    core.Hero.Position,
-     core.GetSpells.GetQ.Range,
-     MinionTypes.All,
-     MinionTeam.Neutral,
-     MinionOrderTypes.MaxHealth);
-                if(minionE!=null)
-                foreach (Vector3 pos in core.GetOrbs)
+                    MinionManager.GetMinions(
+                        core.Hero.Position,
+                        core.GetSpells.GetQ.Range,
+                        MinionTypes.All,
+                        MinionTeam.Neutral,
+                        MinionOrderTypes.MaxHealth);
+
+
+                if (minionE != null)
                 {
-                    var result = minionE.Where(x => x.Position.Distance(pos) < 50);
-                    if (result != null)
+                    var EfarmPos = core.GetSpells.GetQ.GetCircularFarmLocation(minionE);
+                    if (EfarmPos.Position.IsValid())
                     {
-                        core.GetSpells.GetE.Cast(pos);
+                        core.GetSpells.GetE.Cast(EfarmPos.Position);
                     }
                 }
-                base.Jungleclear(core);
             }
+            base.Jungleclear(core);
         }
     }
-    }
+        
+        }
+    
 
