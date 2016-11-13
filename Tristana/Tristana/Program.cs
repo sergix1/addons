@@ -91,9 +91,13 @@ namespace Tristana
                 combo.AddSubMenu(Emenu);
                 combo.AddItem(new MenuItem("CR", "Use R to finish Target").SetValue(true));
             }
+
+
+        //    vgapcloserMenu
             misc = new LeagueSharp.Common.Menu("Misc", "Misc Menu");
             {
                 misc.AddItem(new MenuItem("AG", "Anti Gapcloser").SetValue(true));
+
                 misc.AddItem(new MenuItem("AI", "Auto Interrupter").SetValue(true));
             }
             drawing = new LeagueSharp.Common.Menu("Drawing", "Drawing Menu");
@@ -170,7 +174,6 @@ namespace Tristana
             {
                 Drawing.DrawText(hpPos.X, hpPos.Y - 20, System.Drawing.Color.CornflowerBlue, "Kill With R");
             }
-            Drawing.DrawText(hpPos.X, hpPos.Y - 40, System.Drawing.Color.CornflowerBlue, "Total AA to Kill " + getTotalAAToKill(tar) );
 
         }
 
