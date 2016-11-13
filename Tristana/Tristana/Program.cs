@@ -162,7 +162,11 @@ namespace Tristana
 
             
             }
-            if (tar.Health <= TotalRDamage)
+            if (tar.Health <= totalSpellDamage)
+            {
+                Drawing.DrawText(hpPos.X, hpPos.Y - 20, System.Drawing.Color.CornflowerBlue, "Kill With R");
+            }
+            else if(tar.Health<=TotalRDamage)
             {
                 Drawing.DrawText(hpPos.X, hpPos.Y - 20, System.Drawing.Color.CornflowerBlue, "Kill With R");
             }
@@ -250,6 +254,10 @@ namespace Tristana
                if (totalDamage > tar.Health)
                {
                    R.Cast(tar);
+               }
+               else if (rdamage > tar.Health)
+               {
+                        R.Cast(tar);
                }
            }
        }
