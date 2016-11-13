@@ -58,6 +58,12 @@
     <Compile Include="Modes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SebbyLib\Cache.cs" />
+    <Compile Include="SebbyLib\HealthPrediction.cs" />
+    <Compile Include="SebbyLib\Movement.cs" />
+    <Compile Include="SebbyLib\OktwCommon.cs" />
+    <Compile Include="SebbyLib\Orbwalking.cs" />
+    <Compile Include="SebbyLib\PredictionOktw.cs" />
     <Compile Include="Skills.cs" />
   </ItemGroup>
   <ItemGroup>

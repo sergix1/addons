@@ -7,6 +7,9 @@ using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
 using System.Drawing;
+using SebbyLib;
+using Orbwalking = LeagueSharp.Common.Orbwalking;
+
 namespace MasterOfThorns
 {
     class Program : Modes
@@ -45,6 +48,7 @@ namespace MasterOfThorns
             var orbWalkerMenu = new Menu("Orbwalker", "Orbwalker");
             Orbwalking.Orbwalker orb = new Orbwalking.Orbwalker(orbWalkerMenu);
             var TargetSelectorMenu = new Menu("TargetSelector", "TargetSelector");
+            
             var comboMenu = new Menu("Combo", "Combo");
             {
                 comboMenu.AddItem(new MenuItem("QC", "Use Q in combo").SetValue(true));
@@ -114,7 +118,8 @@ namespace MasterOfThorns
                 drawSettingsMenu.AddItem(new MenuItem("Draw E Range", "Draw E Range").SetValue(true));
                 drawSettingsMenu.AddItem(new MenuItem("Draw R Range", "Draw R Range").SetValue(true));
             }
-
+            menu.AddItem(new MenuItem("Prediction", "Prediction").SetValue(
+                        new StringList(new[] { "OKTW Prediction","Common Prediction" }, 0)));
             TargetSelector.AddToMenu(TargetSelectorMenu);
             menu.AddSubMenu(orbWalkerMenu);        //ORBWALKER
             menu.AddSubMenu(TargetSelectorMenu);   //TS
@@ -162,11 +167,25 @@ namespace MasterOfThorns
 
         public  void cast(Obj_AI_Hero target, Spell spell, int h)
         {
+          // spell.cast
+         // OktwCommon.
+            var mode = menu.Item("Prediction").GetValue<StringList>().SelectedIndex;
+            if (mode == 0)
+            {
+                float time = getPlayer().Distance(target)/spell.Speed;
+                var pred = SebbyLib.Prediction.Prediction.GetPrediction(target, time);
+                if (pred.Hitchance >= getSkills().hitchanceCheckOKTW(h))
+                    spell.Cast(pred.CastPosition);
+            }
+            else
+            {
 
-                spell.CastIfHitchanceEquals(
-                    target,
-                    base.getSkills().hitchanceCheck(h));
-            
+
+                 spell.CastIfHitchanceEquals( 
+                      target,
+                      base.getSkills().hitchanceCheck(h));
+            }
+
         }
         public void updateModes()
         {

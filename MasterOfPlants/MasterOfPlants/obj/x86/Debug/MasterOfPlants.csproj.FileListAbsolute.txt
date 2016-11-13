@@ -1,0 +1,15 @@
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\MasterOfPlants.exe.config
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\MasterOfPlants.exe
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\MasterOfPlants.pdb
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\LeagueSharp.Common.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\LeagueSharp.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\SharpDX.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\LeagueSharp.Data.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\clipper_library.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\Newtonsoft.Json.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\LeagueSharp.Common.pdb
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\LeagueSharp.Data.pdb
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\clipper_library.pdb
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\obj\x86\Debug\MasterOfPlants.exe
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\obj\x86\Debug\MasterOfPlants.pdb

@@ -49,8 +49,22 @@ namespace MasterOfThorns
        {
            return R;
        }
-
-       public HitChance hitchanceCheck(int i)
+        public SebbyLib.Prediction.HitChance hitchanceCheckOKTW(int i)
+        {
+            switch (i)
+            {
+                case 1:
+                    return SebbyLib.Prediction.HitChance.Low;
+                case 2:
+                    return SebbyLib.Prediction.HitChance.Medium;
+                case 3:
+                    return SebbyLib.Prediction.HitChance.High;
+                case 4:
+                    return SebbyLib.Prediction.HitChance.VeryHigh;
+            }
+            return SebbyLib.Prediction.HitChance.Low;
+        }
+        public HitChance hitchanceCheck(int i)
        {
            switch (i)
            {
