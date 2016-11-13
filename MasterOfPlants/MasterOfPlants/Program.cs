@@ -169,6 +169,7 @@ namespace MasterOfThorns
         {
           // spell.cast
          // OktwCommon.
+            if (target == null) return;
             var mode = menu.Item("Prediction").GetValue<StringList>().SelectedIndex;
             if (mode == 0)
             {

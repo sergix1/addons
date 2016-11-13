@@ -167,7 +167,8 @@ namespace MasterOfThorns
        }
 
        public bool igniteCast(Obj_AI_Base target)
-        {
+       {
+           if (target == null) return false;
             if (ignite.IsReady() && target.Health - ObjectManager.Player.GetSummonerSpellDamage(target, Damage.SummonerSpell.Ignite) <= 0)
             {
                 ObjectManager.Player.Spellbook.CastSpell(ignite, target);
