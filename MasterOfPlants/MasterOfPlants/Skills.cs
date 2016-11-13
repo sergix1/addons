@@ -16,9 +16,9 @@ namespace MasterOfThorns
 
         public Skills()
         {
-            Q = new Spell(SpellSlot.Q, 800); // circle
+            Q = new Spell(SpellSlot.Q, 700); // circle
             W = new Spell(SpellSlot.W, 850);  // circle
-            E = new Spell(SpellSlot.E, 1100); // line
+            E = new Spell(SpellSlot.E, 900); // line
             R = new Spell(SpellSlot.R, 700); // circle
             passive = new Spell(SpellSlot.Q, 1470);
             Q.SetSkillshot(Q.Instance.SData.SpellCastTime, Q.Instance.SData.LineWidth, Q.Instance.SData.MissileSpeed, false, SkillshotType.SkillshotCircle);

@@ -44,6 +44,7 @@ namespace MasterOfThorns
         public void laneClear()
         {          
             var minion = MinionManager.GetMinions(skills.getQ().Range, MinionTypes.All, MinionTeam.Enemy, MinionOrderTypes.MaxHealth).FirstOrDefault();
+            if (minion == null) return;
             var useQ = p.getMenu().Item("QL").GetValue<bool>();
             var useW = p.getMenu().Item("WL").GetValue<bool>();
             var useE = p.getMenu().Item("EL").GetValue<bool>();
@@ -90,6 +91,7 @@ namespace MasterOfThorns
         public void jungleClear()
         {
             var minion = MinionManager.GetMinions(skills.getQ().Range, MinionTypes.All, MinionTeam.Neutral, MinionOrderTypes.MaxHealth).FirstOrDefault();
+            if (minion == null) return;
             var useQ = p.getMenu().Item("QJ").GetValue<bool>();
             var useW =p.getMenu().Item("WJ").GetValue<bool>();
             var useE =p.getMenu().Item("EJ").GetValue<bool>();
@@ -268,6 +270,7 @@ namespace MasterOfThorns
             }
             if (useRkill)
             {
+              if(target!=null)
                 if (target.Health <= getSkills().getR().GetDamage(target))
                 {
                     skills.rCast(target, r, p);
