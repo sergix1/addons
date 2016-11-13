@@ -162,7 +162,7 @@ namespace MasterOfThorns
             int q = p.getMenu().Item("sethQ").GetValue<Slider>().Value;
             int w = p.getMenu().Item("sethW").GetValue<Slider>().Value;
          
-            Game.PrintChat("haras useQ: "+useQ);
+           // Game.PrintChat("haras useQ: "+useQ);
             //    if (!useQ && !useW && !useE) return;
             if (useQ && !useW)
                 skills.qCast(getTarget(),q);

@@ -241,7 +241,7 @@ namespace Tristana
             //checks
             // E charges
             var useR = menu.Item("CR").GetValue<bool>();
-            if(useR)
+            if(useR&&R.IsReady())
             foreach (var tar in HeroManager.Enemies)
            {
                if (tar.IsInvulnerable) continue;
