@@ -88,10 +88,10 @@ namespace DarkMage
                     var qeTarget = TargetSelector.GetTarget(qeRange, TargetSelector.DamageType.Magical);
                     if (qeTarget != null)
                     {
-                        var predpos = Prediction.GetPrediction(qeTarget, 700);
+                        var predpos = Prediction.GetPrediction(qeTarget, 500);
                         if (predpos.UnitPosition.Distance(core.Hero.Position) < qeRange)    
                         {
-                            var ballPos = core.Hero.Position.Extend(qeTarget.Position, core.GetSpells.GetQ.Range);
+                            var ballPos = core.Hero.Position.Extend(predpos.UnitPosition, core.GetSpells.GetQ.Range);
                             core.GetSpells.GetQ.Cast(ballPos);
                             Utility.DelayAction.Add(250 + Game.Ping, () => core.GetSpells.GetE.Cast(ballPos));
                             AutoQE = true;
