@@ -44,7 +44,7 @@ namespace Tristana
        private static void OnAntiGapcloser(ActiveGapcloser gapcloser)
         {
             var useAntiGapcloser = menu.Item("AG").GetValue<bool>();
-            if (R.IsReady() && useAntiGapcloser && gapcloser.Sender.Target == Hero)
+            if (R.IsReady() && useAntiGapcloser && gapcloser.Sender.IsValidTarget(200))
             {
                 R.Cast(gapcloser.Sender);
             }

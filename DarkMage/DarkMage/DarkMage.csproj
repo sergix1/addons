@@ -56,7 +56,7 @@
   <ItemGroup>
     <Compile Include="Champion.cs" />
     <Compile Include="GameEvents.cs" />
-    <Compile Include="Menu\DrawDamage.cs" />
+    <Compile Include="DrawDamage.cs" />
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Modes\Modes.cs" />
     <Compile Include="OrbManager.cs" />
