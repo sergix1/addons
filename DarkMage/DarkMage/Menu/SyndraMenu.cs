@@ -10,7 +10,7 @@ namespace DarkMage
 {
    public class SyndraMenu : Menu
     {
-        private LeagueSharp.Common.Menu _comboMenu,_drawingMenu, _harassMenu, _keyMenu,_targetsRMe, _dontRIfSpellReady,_farmMenu,_laneClearMenu,_JungleClearMenu;
+        private LeagueSharp.Common.Menu _comboMenu,_drawingMenu, _harassMenu, _keyMenu,_targetsRMe, _dontRIfSpellReady,_farmMenu,_laneClearMenu,_JungleClearMenu,_miscMenu;
         public SyndraMenu(string menuName, SyndraCore core) : base(menuName, core)
         {
         }
@@ -116,8 +116,16 @@ namespace DarkMage
             GetMenu.AddSubMenu(_targetsRMe);
             GetMenu.AddSubMenu(_dontRIfSpellReady);
             GetMenu.AddSubMenu(_keyMenu);
+            GetMenu.AddSubMenu(_miscMenu);
             GetMenu.AddSubMenu(_drawingMenu);
             base.CloseMenu();
+        }
+
+        public override void LoadMiscMenu()
+        {
+            _miscMenu.AddItem(new MenuItem("AE", "Use E Antigapclose").SetValue(true));
+            _miscMenu.AddItem(new MenuItem("IE", "Use E Interrupt").SetValue(true));
+            base.LoadMiscMenu();
         }
     }
 }

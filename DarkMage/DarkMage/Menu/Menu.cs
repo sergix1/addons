@@ -34,13 +34,13 @@ namespace DarkMage
             LoadDrawings();
             LoadkeyMenu();
           //  LoadMiscInterrupt(azir);
-          //  LoadMiscMenu(azir);
+            LoadMiscMenu();
 
         }
 
-        private void LoadMiscMenu(SyndraCore azir)
+      public virtual void LoadMiscMenu()
         {
-            throw new NotImplementedException();
+         
         }
 
         private void LoadMiscInterrupt(SyndraCore azir)

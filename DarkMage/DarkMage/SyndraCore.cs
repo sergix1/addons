@@ -26,8 +26,35 @@ namespace DarkMage
         {
             _tittle = "[Syndra]Dark Mage";
             _version = "1.0.0.0";
+            AntiGapcloser.OnEnemyGapcloser += OnGapcloser;
+            Interrupter2.OnInterruptableTarget += OnInterrupt;
             CustomEvents.Game.OnGameLoad += OnLoad;
         }
+
+        private void OnInterrupt(Obj_AI_Hero sender, Interrupter2.InterruptableTargetEventArgs args)
+        {
+            bool onI = GetMenu.GetMenu.Item("IE").GetValue<bool>();
+            if (onI)
+            {
+                if (sender.IsValidTarget(300)&&GetSpells.GetE.IsInRange(sender))
+                {
+                    GetSpells.GetE.Cast(sender.Position);
+                }
+            }
+        }
+
+        private void OnGapcloser(ActiveGapcloser gapcloser)
+        {
+            bool onGap=GetMenu.GetMenu.Item("AE").GetValue<bool>();
+            if (onGap)
+            {
+                if (gapcloser.Sender.IsValidTarget(300))
+                {
+                    GetSpells.GetE.Cast(gapcloser.Sender);
+                }
+            }
+        }
+
         private void OnLoad(EventArgs args)
         {
             if (Hero.ChampionName != "Syndra") return;
