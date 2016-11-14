@@ -111,7 +111,8 @@ namespace Tristana
             Emenu =new LeagueSharp.Common.Menu("E Menu","EMenu");
            {
                 Emenu.AddItem(new MenuItem("CE", "Use E").SetValue(true));
-               Emenu.AddSubMenu(TargetEMenu);
+                Emenu.AddItem(new MenuItem("CFE", "Focus target with E").SetValue(true));
+                Emenu.AddSubMenu(TargetEMenu);
            }
            var Rmenu = new LeagueSharp.Common.Menu("R Menu", "RMenu");
             {
@@ -255,7 +256,13 @@ namespace Tristana
         }
        private static void OnUpdate(EventArgs args)
        {
-           SetRanges();
+           var focusE = menu.Item("CFE").GetValue<bool>();
+            var eTarget = HeroManager.Enemies.FirstOrDefault(target => target.IsValidTarget() && Orb.InAutoAttackRange(target) && target.HasBuff("tristanaechargesound"));
+            if (focusE&&eTarget != null)
+            {
+                Orb.ForceTarget(eTarget);
+            }
+            SetRanges();
            switch (Orb.ActiveMode)
            {
                case Orbwalking.OrbwalkingMode.LastHit:
