@@ -54,8 +54,8 @@ namespace Tristana
         private static void Game_ProcessSpell(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             var useAntiInterrupter = menu.Item("AI").GetValue<bool>();
-            bool useAntiOnSpell = menu.Item(args.SData.Name).GetValue<bool>();
-            if (R.IsReady() && useAntiInterrupter&&useAntiOnSpell)
+          //  bool useAntiOnSpell = menu.Item(args.SData.Name).GetValue<bool>();
+            if (R.IsReady() && useAntiInterrupter)
                 R.Cast(sender);
         }
 
