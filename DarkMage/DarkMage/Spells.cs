@@ -123,9 +123,6 @@ namespace DarkMage
                 var orb = core.GetOrbs[index];
                 if(orb.IsValid())
                 if (!GetE.IsInRange(orb)) continue;
-                for (var i = 0; i < HeroManager.Enemies.Count; i++)
-                {
-                    var tar = HeroManager.Enemies[i];
                     //500 extended range. 
                     var finalBallPos = HeroManager.Player.Position.Extend(orb, 500);
 
@@ -133,7 +130,7 @@ namespace DarkMage
                     {
                         GetE.Cast(orb);
                     }
-                }
+                
             }
             return false;
 
