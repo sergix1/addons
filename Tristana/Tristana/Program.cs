@@ -44,9 +44,9 @@ namespace Tristana
             LoadSpells();
             LoadMenu();
             Orbwalking.AfterAttack += AfterAttack;
-            //Interrupter2.OnInterruptableTarget += OnInterrupter;
+            Interrupter2.OnInterruptableTarget += OnInterrupter;
             AntiGapcloser.OnEnemyGapcloser += OnAntiGapcloser;
-            Obj_AI_Base.OnProcessSpellCast += Game_ProcessSpell;
+          //  Obj_AI_Base.OnProcessSpellCast += Game_ProcessSpell;
             Game.OnUpdate += OnUpdate;
             LeagueSharp.Drawing.OnDraw += Ondraw;
         }
@@ -54,7 +54,8 @@ namespace Tristana
         private static void Game_ProcessSpell(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             var useAntiInterrupter = menu.Item("AI").GetValue<bool>();
-          //  bool useAntiOnSpell = menu.Item(args.SData.Name).GetValue<bool>();
+            Console.WriteLine(args.SData.Name);
+          // bool useAntiOnSpell = menu.Item("I"+args.SData.Name).GetValue<bool>();
             if (R.IsReady() && useAntiInterrupter)
                 R.Cast(sender);
         }
@@ -143,19 +144,19 @@ namespace Tristana
                         gapcloserMenu.AddItem(new MenuItem(spellName, spellName).SetValue(true));
                 }
            }
-            var interruptMenu = new LeagueSharp.Common.Menu("Interupt Spells", "Interrupt");
+            var interruptMenu = new LeagueSharp.Common.Menu("Interrupt Spells", "Interrupt");
             {
                 foreach (var hero in HeroManager.Enemies)
                 {
                     foreach (string spellName in Interrupt)
                         if (hero.GetSpell(SpellSlot.Q).Name == spellName)
-                            interruptMenu.AddItem(new MenuItem(spellName, spellName).SetValue(true));
+                            interruptMenu.AddItem(new MenuItem("I"+spellName, "I"+spellName).SetValue(true));
                         else if (hero.GetSpell(SpellSlot.W).Name == spellName)
-                            interruptMenu.AddItem(new MenuItem(spellName, spellName).SetValue(true));
+                            interruptMenu.AddItem(new MenuItem("I" + spellName, "I" + spellName).SetValue(true));
                         else if (hero.GetSpell(SpellSlot.E).Name == spellName)
-                            interruptMenu.AddItem(new MenuItem(spellName, spellName).SetValue(true));
+                            interruptMenu.AddItem(new MenuItem("I" + spellName, "I" + spellName).SetValue(true));
                         else if (hero.GetSpell(SpellSlot.R).Name == spellName)
-                            interruptMenu.AddItem(new MenuItem(spellName, spellName).SetValue(true));
+                            interruptMenu.AddItem(new MenuItem("I" + spellName, "I" + spellName).SetValue(true));
                 }
             }
             misc = new LeagueSharp.Common.Menu("Misc", "Misc Menu");
