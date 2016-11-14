@@ -17,7 +17,6 @@ namespace DarkMage
             this.core = core;
             LeagueSharp.Drawing.OnDraw += Ondraw;
         }
-
         private void Ondraw(EventArgs args)
         {
             var  DrawTotalDamage = core.GetMenu.GetMenu.Item("DTD").GetValue<bool>();

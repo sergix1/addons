@@ -197,6 +197,10 @@ MinionManager.GetMinions(
                         core.GetSpells.CastWToPos(WfarmPos.Position);
 
                     }
+                    else
+                    {
+                        core.GetSpells.CastWToPos(Game.CursorPos.To2D());
+                    }
                 }
             }
             if (useE)
