@@ -14,8 +14,19 @@ namespace Tristana
    static class Program
    {
 
-
-       public static Spell Q, W,E, R;
+        static readonly string[] Gapcloser = new[]
+      {
+                "AkaliShadowDance", "Headbutt", "DianaTeleport", "IreliaGatotsu", "JaxLeapStrike", "JayceToTheSkies",
+                "MaokaiUnstableGrowth", "MonkeyKingNimbus", "Pantheon_LeapBash", "PoppyHeroicCharge", "QuinnE",
+                "XenZhaoSweep", "blindmonkqtwo", "FizzPiercingStrike", "RengarLeap","LeonaZenithBlade"
+           };
+        static readonly string[] Interrupt = new[]
+           {
+                "KatarinaR", "GalioIdolOfDurand", "Crowstorm", "Drain", "AbsoluteZero", "ShenStandUnited", "UrgotSwap2",
+                "AlZaharNetherGrasp", "FallenOne", "Pantheon_GrandSkyfall_Jump", "VarusQ", "CaitlynAceintheHole",
+                "MissFortuneBulletTime", "InfiniteDuress", "LucianR"
+           };
+        public static Spell Q, W,E, R;
         public  static Obj_AI_Hero Hero => HeroManager.Player;
        public static Menu menu,combo,misc,drawing,orbwalkerMenu, targetSelectorMenu,Emenu, TargetEMenu;
        public static Orbwalking.Orbwalker Orb;
@@ -33,18 +44,28 @@ namespace Tristana
             LoadSpells();
             LoadMenu();
             Orbwalking.AfterAttack += AfterAttack;
-            Interrupter2.OnInterruptableTarget += OnInterrupter;
+            //Interrupter2.OnInterruptableTarget += OnInterrupter;
             AntiGapcloser.OnEnemyGapcloser += OnAntiGapcloser;
+            Obj_AI_Base.OnProcessSpellCast += Game_ProcessSpell;
             Game.OnUpdate += OnUpdate;
             LeagueSharp.Drawing.OnDraw += Ondraw;
         }
 
-
-
-       private static void OnAntiGapcloser(ActiveGapcloser gapcloser)
+        private static void Game_ProcessSpell(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
+            var useAntiInterrupter = menu.Item("AI").GetValue<bool>();
+            bool useAntiOnSpell = menu.Item(args.SData.Name).GetValue<bool>();
+            if (R.IsReady() && useAntiInterrupter&&useAntiOnSpell)
+                R.Cast(sender);
+        }
+
+        private static void OnAntiGapcloser(ActiveGapcloser gapcloser)
+       {
+          //  gapcloser.Slot
+           bool useAntiOnSpell = menu.Item(gapcloser.Sender.GetSpell(gapcloser.Slot).Name).GetValue<bool>();
+
             var useAntiGapcloser = menu.Item("AG").GetValue<bool>();
-            if (R.IsReady() && useAntiGapcloser && gapcloser.Sender.IsValidTarget(300))
+            if (R.IsReady() && useAntiGapcloser && gapcloser.Sender.IsValidTarget(300)&&useAntiOnSpell)
             {
                 R.Cast(gapcloser.Sender);
             }
@@ -80,24 +101,67 @@ namespace Tristana
                     TargetEMenu.AddItem(new MenuItem("ET" + ai.ChampionName, ai.ChampionName).SetValue(true));
                 }
             }
+            var targetRMenu = new LeagueSharp.Common.Menu("Targets", "TargetsR");
+            {
+                foreach (var ai in HeroManager.Enemies)
+                {
+                    targetRMenu.AddItem(new MenuItem("RT" + ai.ChampionName, ai.ChampionName).SetValue(true));
+                }
+            }
             Emenu =new LeagueSharp.Common.Menu("E Menu","EMenu");
            {
                 Emenu.AddItem(new MenuItem("CE", "Use E").SetValue(true));
                Emenu.AddSubMenu(TargetEMenu);
            }
+           var Rmenu = new LeagueSharp.Common.Menu("R Menu", "RMenu");
+            {
+                Rmenu.AddItem(new MenuItem("CR", "Use R to finish Target").SetValue(true));
+                Rmenu.AddSubMenu(targetRMenu);
+            }
             combo = new LeagueSharp.Common.Menu("Combo", "Combo Menu");
             {
                 combo.AddItem(new MenuItem("CQ", "Use Q").SetValue(true));
                 combo.AddSubMenu(Emenu);
-                combo.AddItem(new MenuItem("CR", "Use R to finish Target").SetValue(true));
+                combo.AddSubMenu(Rmenu);
             }
 
-
-        //    vgapcloserMenu
+      
+            //    vgapcloserMenu
+           var gapcloserMenu = new LeagueSharp.Common.Menu("Spells Gapclosers", "Gapcloser");
+           {
+               foreach (var hero in HeroManager.Enemies)
+               {
+                    foreach(string spellName in Gapcloser )
+                        if (hero.GetSpell(SpellSlot.Q).Name == spellName)
+                            gapcloserMenu.AddItem(new MenuItem(spellName,spellName).SetValue(true));
+                      else  if (hero.GetSpell(SpellSlot.W).Name == spellName)
+                        gapcloserMenu.AddItem(new MenuItem(spellName, spellName).SetValue(true));
+                      else  if (hero.GetSpell(SpellSlot.E).Name == spellName)
+                        gapcloserMenu.AddItem(new MenuItem(spellName, spellName).SetValue(true));
+                      else if (hero.GetSpell(SpellSlot.R).Name == spellName)
+                        gapcloserMenu.AddItem(new MenuItem(spellName, spellName).SetValue(true));
+                }
+           }
+            var interruptMenu = new LeagueSharp.Common.Menu("Interupt Spells", "Interrupt");
+            {
+                foreach (var hero in HeroManager.Enemies)
+                {
+                    foreach (string spellName in Interrupt)
+                        if (hero.GetSpell(SpellSlot.Q).Name == spellName)
+                            interruptMenu.AddItem(new MenuItem(spellName, spellName).SetValue(true));
+                        else if (hero.GetSpell(SpellSlot.W).Name == spellName)
+                            interruptMenu.AddItem(new MenuItem(spellName, spellName).SetValue(true));
+                        else if (hero.GetSpell(SpellSlot.E).Name == spellName)
+                            interruptMenu.AddItem(new MenuItem(spellName, spellName).SetValue(true));
+                        else if (hero.GetSpell(SpellSlot.R).Name == spellName)
+                            interruptMenu.AddItem(new MenuItem(spellName, spellName).SetValue(true));
+                }
+            }
             misc = new LeagueSharp.Common.Menu("Misc", "Misc Menu");
             {
                 misc.AddItem(new MenuItem("AG", "Anti Gapcloser").SetValue(true));
-
+                misc.AddSubMenu(gapcloserMenu);
+                misc.AddSubMenu(interruptMenu);
                 misc.AddItem(new MenuItem("AI", "Auto Interrupter").SetValue(true));
             }
             drawing = new LeagueSharp.Common.Menu("Drawing", "Drawing Menu");
@@ -243,15 +307,19 @@ namespace Tristana
        {
            return menu.Item("ET"+tar.ChampionName).GetValue<bool>();
         }
-       public static void CastR()
+        public static bool TargetRCheck(Obj_AI_Hero tar)
+        {
+            return menu.Item("RT" + tar.ChampionName).GetValue<bool>();
+        }
+        public static void CastR()
        {
             //checks
             // E charges
             var useR = menu.Item("CR").GetValue<bool>();
             if(useR&&R.IsReady())
             foreach (var tar in HeroManager.Enemies)
-           {
-               if (tar.IsInvulnerable) continue;
+            {
+               if (tar.IsInvulnerable|| !TargetRCheck(tar)) continue;
                     var rdamage = R.GetDamage(tar);
                var totalDamage = GetEDmg(tar, (GetTristanaEBuff(tar)) + 1)+rdamage;
                if (totalDamage > tar.Health)
