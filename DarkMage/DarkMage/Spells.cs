@@ -159,8 +159,8 @@ namespace DarkMage
 
         public float RDamage(Obj_AI_Hero target,SyndraCore core)
         {
-            float damagePerBall = (GetR.GetDamage(target)/3);
-            float totalDamageR = GetR.GetDamage(target) + damagePerBall*core.GetOrbs.Count;
+            var damagePerBall = (GetR.GetDamage(target)/3);
+            var totalDamageR = GetR.GetDamage(target) + damagePerBall*core.GetOrbs.Count;
             return totalDamageR;
         }
         public float RDamage(Obj_AI_Hero target,int NSpeheres)
