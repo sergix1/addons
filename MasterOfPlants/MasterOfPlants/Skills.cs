@@ -21,11 +21,13 @@ namespace MasterOfThorns
             E = new Spell(SpellSlot.E, 900); // line
             R = new Spell(SpellSlot.R, 700); // circle
             passive = new Spell(SpellSlot.Q, 1470);
-            Q.SetSkillshot(Q.Instance.SData.SpellCastTime, Q.Instance.SData.LineWidth, Q.Instance.SData.MissileSpeed, false, SkillshotType.SkillshotCircle);
+            Q.SetSkillshot(1f, 100f, float.MaxValue, false, SkillshotType.SkillshotCircle);
+           // Q.SetSkillshot(Q.Instance.SData.SpellCastTime, Q.Instance.SData.LineWidth, Q.Instance.SData.MissileSpeed, false, SkillshotType.SkillshotCircle);
             W.SetSkillshot(W.Instance.SData.SpellCastTime, W.Instance.SData.LineWidth, W.Instance.SData.MissileSpeed,false, SkillshotType.SkillshotCircle);
-            E.SetSkillshot(E.Instance.SData.SpellCastTime, E.Instance.SData.LineWidth, E.Instance.SData.MissileSpeed, false, SkillshotType.SkillshotLine);
-            E.SetSkillshot(R.Instance.SData.SpellCastTime, R.Instance.SData.LineWidth, R.Instance.SData.MissileSpeed, false, SkillshotType.SkillshotCircle);
-            passive.SetSkillshot(passive.Instance.SData.SpellCastTime, passive.Instance.SData.LineWidth, passive.Instance.SData.MissileSpeed, false, SkillshotType.SkillshotLine);
+            //E.SetSkillshot(E.Instance.SData.SpellCastTime, E.Instance.SData.LineWidth, E.Instance.SData.MissileSpeed, false, SkillshotType.SkillshotLine);
+            //E.SetSkillshot(R.Instance.SData.SpellCastTime, R.Instance.SData.LineWidth, R.Instance.SData.MissileSpeed, false, SkillshotType.SkillshotCircle);
+            E.SetSkillshot(0.5f, 100f, 1150f, false, SkillshotType.SkillshotLine);
+            R.SetSkillshot(0.5f, 500f, 20f, false, SkillshotType.SkillshotCircle);
             ignite = ObjectManager.Player.GetSpellSlot("SummonerDot");
         }
 
@@ -123,8 +125,10 @@ namespace MasterOfThorns
        public bool eCast(Obj_AI_Base target, int hitChance,Program program)
        {
              if (target == null) return false;
-             if (E.IsReady() && E.IsInRange(target))
-           {  
+             if (E.IsReady() && program.getPlayer().Distance(target)<=E.Range-200)
+           {
+                Game.PrintChat("CAST e");  
+                Console.WriteLine("Cast E");
                 program.cast(target,E,hitChance);          
                return true;
            }

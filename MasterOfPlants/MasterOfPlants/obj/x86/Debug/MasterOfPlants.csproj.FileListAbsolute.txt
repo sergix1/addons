@@ -13,3 +13,4 @@ C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\L
 C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Debug\clipper_library.pdb
 C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\obj\x86\Debug\MasterOfPlants.exe
 C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\obj\x86\Debug\MasterOfPlants.pdb
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\obj\x86\Debug\MasterOfPlants.csprojResolveAssemblyReference.cache

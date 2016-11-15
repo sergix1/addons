@@ -29,3 +29,4 @@ C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Release
 C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Release\LeagueSharp.Common.pdb
 C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Release\LeagueSharp.Data.pdb
 C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\bin\Release\clipper_library.pdb
+C:\Users\sergi\Documents\GitHub\addons\MasterOfPlants\MasterOfPlants\obj\Debug\MasterOfPlants.csprojResolveAssemblyReference.cache
