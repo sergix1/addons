@@ -123,8 +123,12 @@ namespace DarkMage
 
         public override void LoadMiscMenu()
         {
-            _miscMenu.AddItem(new MenuItem("AE", "Use E Antigapclose").SetValue(true));
-            _miscMenu.AddItem(new MenuItem("IE", "Use E Interrupt").SetValue(true));
+            _miscMenu = new LeagueSharp.Common.Menu("Misc", "Misc Menu");
+            {
+                _miscMenu.AddItem(new MenuItem("AE", "Use E Antigapclose").SetValue(true));
+                _miscMenu.AddItem(new MenuItem("IE", "Use E Interrupt").SetValue(true));
+       
+            }
             base.LoadMiscMenu();
         }
     }
