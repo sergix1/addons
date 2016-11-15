@@ -112,25 +112,26 @@ namespace DarkMage
         }
         public bool CastE(SyndraCore core)
         {
-
-            var eTarget = TargetSelector.GetTarget(GetQ.Range, TargetSelector.DamageType.Magical);
-            if(eTarget!=null)
             if (!GetE.IsReady()) return false;
             if (GetW.IsReady()) return false;
             if (GetOrbs.WObject(false) != null) return false;
             for (var index = 0; index < core.GetOrbs.Count; index++)
             {
-                var orb = core.GetOrbs[index];
-                if(orb.IsValid())
-                if (!GetE.IsInRange(orb)) continue;
+                foreach (Obj_AI_Hero tar in HeroManager.Enemies)
+                {
+                    if (!(tar.Distance(core.Hero) <= GetE.Range)) continue;
+                    var orb = core.GetOrbs[index];
+                    if (orb.IsValid())
+                        if (!GetE.IsInRange(orb)) continue;
                     //500 extended range. 
                     var finalBallPos = HeroManager.Player.Position.Extend(orb, 500);
 
-                    if (CalcE(orb, finalBallPos, eTarget))
+                    if (CalcE(orb, finalBallPos, tar))
                     {
                         GetE.Cast(orb);
                     }
-                
+                }
+
             }
             return false;
 
