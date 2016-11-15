@@ -127,8 +127,6 @@ namespace MasterOfThorns
              if (target == null) return false;
              if (E.IsReady() && program.getPlayer().Distance(target)<=E.Range-200)
            {
-                Game.PrintChat("CAST e");  
-                Console.WriteLine("Cast E");
                 program.cast(target,E,hitChance);          
                return true;
            }
