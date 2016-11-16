@@ -182,14 +182,9 @@ MinionManager.GetMinions(
             }
             if (useW)
             {
-                var minionW =
-                    MinionManager.GetMinions(
-                        core.Hero.Position,
-                        core.GetSpells.GetW.Range,
-                        MinionTypes.All,
-                        MinionTeam.Neutral,
-                        MinionOrderTypes.MaxHealth);
-                if (minionW != null)
+                var minionW = MinionManager.GetMinions(ObjectManager.Player.ServerPosition, core.GetSpells.GetW.Range, MinionTypes.All, MinionTeam.NotAlly);
+                var minionss = minionW.Any(x => x.Team == GameObjectTeam.Neutral);
+                if (minionss)
                 {
                     var WfarmPos = core.GetSpells.GetQ.GetCircularFarmLocation(minionW);
                     if (WfarmPos.Position.IsValid())
