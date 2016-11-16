@@ -78,11 +78,21 @@ namespace DarkMage
             var drawR = GetMenu.GetMenu.Item("DR").GetValue<bool>();
             var drawOrb = GetMenu.GetMenu.Item("DO").GetValue<bool>();
             var drawOrbText = GetMenu.GetMenu.Item("DST").GetValue<bool>();
+            var drawHarassTogle = GetMenu.GetMenu.Item("DHT").GetValue<bool>();
+
             if (ObjectManager.Player.IsDead)
             {
                 return;
             }
-            if(GetSpells.GetQ.IsReady()&&drawQ)
+            if (drawHarassTogle)
+            {
+                var HKey = GetMenu.GetMenu.Item("HKey").GetValue<KeyBind>().Active;
+                if(HKey)
+                Drawing.DrawText(0, 250, System.Drawing.Color.Yellow, "Harass Toggle : True");
+                else
+                    Drawing.DrawText(0, 250, System.Drawing.Color.Yellow, "Harass Toggle : False");
+            }
+                if (GetSpells.GetQ.IsReady()&&drawQ)
             Render.Circle.DrawCircle(ObjectManager.Player.Position, GetSpells.GetQ.Range, System.Drawing.Color.DarkCyan, 2);
             if (GetSpells.GetW.IsReady() && drawW)
                 Render.Circle.DrawCircle(ObjectManager.Player.Position, GetSpells.GetW.Range, System.Drawing.Color.DarkCyan, 2);

@@ -45,6 +45,7 @@ namespace DarkMage
                 _drawingMenu.AddItem(new MenuItem("DTD", "Draw Total Damage").SetValue(true).SetTooltip("Q=Blue W=Orange E=Green Red=R"));
                 _drawingMenu.AddItem(new MenuItem("DO", "Draw Orbs").SetValue(true));
                 _drawingMenu.AddItem(new MenuItem("DST", "Draw Sphere Text").SetValue(true));
+                _drawingMenu.AddItem(new MenuItem("DHT", "Draw Harass Togle").SetValue(true));
             }
             _targetsRMe = new LeagueSharp.Common.Menu("Targets R", "Targets R");
             {
