@@ -86,16 +86,21 @@ namespace DarkMage
                 {
                     var qeRange = core.GetSpells.GetQ.Range + 500;
                     var qeTarget = TargetSelector.GetTarget(qeRange, TargetSelector.DamageType.Magical);
+                    /*   
+                        if (qeTarget != null)
+                        {
+                            var predpos = Prediction.GetPrediction(qeTarget, 500);
+                            if (predpos.UnitPosition.Distance(core.Hero.Position) < qeRange)    
+                            {
+                                var ballPos = core.Hero.Position.Extend(predpos.UnitPosition, core.GetSpells.GetQ.Range);
+                                core.GetSpells.GetQ.Cast(ballPos);
+                                Utility.DelayAction.Add(250 + Game.Ping, () => core.GetSpells.GetE.Cast(ballPos));
+                                AutoQE = true;
+                            }
+                        }*/
                     if (qeTarget != null)
                     {
-                        var predpos = Prediction.GetPrediction(qeTarget, 500);
-                        if (predpos.UnitPosition.Distance(core.Hero.Position) < qeRange)    
-                        {
-                            var ballPos = core.Hero.Position.Extend(predpos.UnitPosition, core.GetSpells.GetQ.Range);
-                            core.GetSpells.GetQ.Cast(ballPos);
-                            Utility.DelayAction.Add(250 + Game.Ping, () => core.GetSpells.GetE.Cast(ballPos));
-                            AutoQE = true;
-                        }
+                        core.GetSpells.TryBallE(qeTarget);
                     }
                 }
             }

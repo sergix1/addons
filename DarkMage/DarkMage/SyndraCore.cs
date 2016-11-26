@@ -101,7 +101,7 @@ namespace DarkMage
             if (GetSpells.GetR.IsReady() && drawR)
                 Render.Circle.DrawCircle(ObjectManager.Player.Position, GetSpells.GetR.Range, System.Drawing.Color.DarkCyan, 2);
             if(drawQE&&GetSpells.GetE.IsReady()&&GetSpells.GetQ.IsReady())
-            Render.Circle.DrawCircle(ObjectManager.Player.Position, GetSpells.GetQ.Range+500, System.Drawing.Color.Red, 2);
+            Render.Circle.DrawCircle(ObjectManager.Player.Position, GetSpells.GetQ.Range+450, System.Drawing.Color.Red, 2);
             var orbs = GetOrbs;
             if (orbs != null)
             {
