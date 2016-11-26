@@ -20,15 +20,25 @@ namespace DarkMage
             var useW = core.GetMenu.GetMenu.Item("CW").GetValue<bool>();
             var useE = core.GetMenu.GetMenu.Item("CE").GetValue<bool>();
             var useR = core.GetMenu.GetMenu.Item("CR").GetValue<bool>();
-            if (useQ)
-                core.GetSpells.CastQ();
-            if (useW)
-                core.GetSpells.CastW();
-            if (useE)
+            var qeRange = core.GetSpells.GetQ.Range + 500;
+            var qeTarget = TargetSelector.GetTarget(qeRange, TargetSelector.DamageType.Magical);
+            if (qeTarget != null)
             {
-                var eTarget = TargetSelector.GetTarget(core.GetSpells.EQ.Range, TargetSelector.DamageType.Magical);
-                if(eTarget!=null&& core.GetSpells.GetE.IsReady())
-                core.GetSpells.castE(eTarget);
+
+                if (!core.GetSpells.castE(qeTarget))
+                {
+                    if (useQ)
+                        core.GetSpells.CastQ();
+                    if (useW)
+                        core.GetSpells.CastW();
+                }
+                if (useE)
+                {
+                    var eTarget = TargetSelector.GetTarget(core.GetSpells.EQ.Range, TargetSelector.DamageType.Magical);
+                    if (eTarget != null && core.GetSpells.GetE.IsReady())
+                        core.GetSpells.castE(eTarget);
+                }
+
             }
             if (useR)
                 core.GetSpells.CastR(core);

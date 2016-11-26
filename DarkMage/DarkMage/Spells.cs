@@ -98,7 +98,7 @@ namespace DarkMage
 
         public bool castE(Obj_AI_Hero t)
         {
-            
+            if (!GetE.IsReady()) return false;
             var ePred = Eany.GetPrediction(t);
             if (ePred.Hitchance >= HitChance.VeryHigh)
             {
