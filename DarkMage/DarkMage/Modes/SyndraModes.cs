@@ -27,6 +27,7 @@ namespace DarkMage
             if (useE)
             {
                 var eTarget = TargetSelector.GetTarget(core.GetSpells.EQ.Range, TargetSelector.DamageType.Magical);
+                if(eTarget!=null&& core.GetSpells.GetE.IsReady())
                 core.GetSpells.castE(eTarget);
             }
             if (useR)
