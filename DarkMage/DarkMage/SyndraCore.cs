@@ -26,8 +26,6 @@ namespace DarkMage
         {
             _tittle = "[Syndra]Dark Mage";
             _version = "1.0.0.0";
-            AntiGapcloser.OnEnemyGapcloser += OnGapcloser;
-            Interrupter2.OnInterruptableTarget += OnInterrupt;
             CustomEvents.Game.OnGameLoad += OnLoad;
         }
 
@@ -64,6 +62,8 @@ namespace DarkMage
             GetSpells = new Spells();
             drawDamage = new DrawDamage(this);
             _modes = new SyndraModes();
+            AntiGapcloser.OnEnemyGapcloser += OnGapcloser;
+            Interrupter2.OnInterruptableTarget += OnInterrupt;
             Game.OnUpdate += OnUpdate;
             LeagueSharp.Drawing.OnDraw += Ondraw;
 
