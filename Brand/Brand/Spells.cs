@@ -129,11 +129,11 @@ namespace Brand
                 if (onlyBlazedQ)
                 {
                     if(isBlazed(qTarget))
-                    core.cast(qTarget, GetQ, 0);
+                    core.cast(qTarget, GetQ, SebbyLib.Prediction.SkillshotType.SkillshotLine);
                 }
                 else
                 {
-                    core.cast(qTarget,GetQ,0);
+                    core.cast(qTarget,GetQ, SebbyLib.Prediction.SkillshotType.SkillshotLine);
                 }
             }
             return false;
@@ -143,8 +143,9 @@ namespace Brand
             if (GetW.IsReady())
             {
                 var wTarget = TargetSelector.GetTarget(GetW.Range, TargetSelector.DamageType.Magical);
-                if (wTarget == null || !GetQ.IsInRange(wTarget)) return false;
-                core.cast(wTarget, GetW, 0);
+                if (wTarget == null || !GetW.IsInRange(wTarget)) return false;
+
+               core.cast(wTarget,GetW, SebbyLib.Prediction.SkillshotType.SkillshotCircle);
             }
             return base.castW(core);
         }

@@ -37,7 +37,7 @@ namespace Brand
             this.menuTittle = this.menuTittle;
             CustomEvents.Game.OnGameLoad += OnLoadChampion;
         }
-        public void cast(Obj_AI_Base target, Spell spell, int h)
+        public void cast(Obj_AI_Base target, Spell spell, SebbyLib.Prediction.SkillshotType type)
         {
             // spell.cast
             // OktwCommon.
@@ -45,18 +45,22 @@ namespace Brand
             var mode = this.GetMenu.GetMenu.Item("Prediction").GetValue<StringList>().SelectedIndex;
             if (mode == 0)
             {
-                try
+                var predictionInput = new SebbyLib.Prediction.PredictionInput
                 {
-                    var time = this.Hero.Distance(target) / spell.Speed;
-                    var pred = SebbyLib.Prediction.Prediction.GetPrediction(target, time);
-                    if (pred.Hitchance >= SebbyLib.Prediction.HitChance.VeryHigh)
-                        spell.Cast(pred.CastPosition);
-                }
-                catch
+                    Aoe = false,
+                    Collision = spell.Collision,
+                    Speed = spell.Speed,
+                    Delay = spell.Delay,
+                    Range = spell.Range,
+                    From = HeroManager.Player.ServerPosition,
+                    Radius = spell.Width,
+                    Unit = target,
+                    Type = type
+            };
+                var pred = SebbyLib.Prediction.Prediction.GetPrediction(predictionInput);
+                if (pred.Hitchance >= SebbyLib.Prediction.HitChance.VeryHigh)
                 {
-                    
-                    spell.CastIfHitchanceEquals(
-                         target, LeagueSharp.Common.HitChance.VeryHigh);
+                    spell.Cast(pred.CastPosition);
                 }
             }
             else
