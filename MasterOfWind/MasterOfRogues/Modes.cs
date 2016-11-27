@@ -276,10 +276,12 @@ namespace MasterOfWind
             var useE = p.getMenu().Item("ELH").GetValue<bool>();
             var qMinions = getMinionsOnRange(skills.getQ());
             var eMinions = getMinionsOnRange(skills.getE());
+            if(qMinions!=null)
                 if (skills.getQ().IsKillable(qMinions) && useQ)
                 {
                     skills.qCast(qMinions);
                 }
+             if (eMinions != null)
                 if (skills.getE().IsKillable(eMinions) && useE)
                 {
                     skills.eCast(qMinions);
