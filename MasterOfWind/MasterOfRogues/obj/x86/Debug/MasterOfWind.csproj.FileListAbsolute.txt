@@ -1,0 +1,16 @@
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\bin\Debug\MasterOfWind.exe.config
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\bin\Debug\MasterOfWind.exe
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\bin\Debug\MasterOfWind.pdb
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\bin\Debug\LeagueSharp.Common.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\bin\Debug\LeagueSharp.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\bin\Debug\SharpDX.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\bin\Debug\LeagueSharp.Data.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\bin\Debug\clipper_library.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\bin\Debug\Newtonsoft.Json.dll
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\bin\Debug\LeagueSharp.Common.pdb
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\bin\Debug\LeagueSharp.Data.pdb
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\bin\Debug\clipper_library.pdb
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\obj\x86\Debug\MasterOfWind.csprojResolveAssemblyReference.cache
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\obj\x86\Debug\MasterOfWind.exe
+C:\Users\sergi\Documents\GitHub\addons\MasterOfWind\MasterOfRogues\obj\x86\Debug\MasterOfWind.pdb
