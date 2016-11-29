@@ -70,23 +70,7 @@ namespace Azir_Free_elo_Machine
 
          
            
-            
-            if (args.Msg != (uint)WindowsMessages.WM_KEYDOWN)
-            {
-                return;
-            }
-            switch (args.WParam)
-            {
-                case 'G':
-                    if (Clickposition == new Vector3(0, 0, 0))
-                        Clickposition = Game.CursorPos;
-                    else
-                        Clickposition = new Vector3(0, 0, 0);
 
-                    break;
-
-           
-            }
   
             
                  
@@ -95,11 +79,21 @@ namespace Azir_Free_elo_Machine
         Obj_AI_Minion soldier;
         private void Game_OnUpdate(EventArgs args)
         {
-
+            if (!azir.Menu.GetMenu.Item("inseckey").GetValue<KeyBind>().Active) return;
                if (!azir.Spells.R.IsReady()) return;
-         //We have to code it.
+            var target =TargetSelector.GetSelectedTarget();
+            var pos = ObjectManager.Player.Position.Extend(target.Position, target.Position.Distance(ObjectManager.Player.Position)+50);
+            var posInsec = ObjectManager.Player.Position.Extend(target.Position, target.Position.Distance(ObjectManager.Player.Position) -300);
+            if (ObjectManager.Player.Distance(target) < 220)
+            {
+                azir.Spells.R.Cast(posInsec);
+            }
+            else
+            {
+                azir._modes._jump.fleeTopos(pos);
+            }
 
-            
+
 
         }
 

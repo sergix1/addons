@@ -157,13 +157,7 @@ namespace MasterOfWind
             */
 
             //laneclear jungleclear
-            if (base.selectedminion != null)
-            {
-                if (!base.selectedminion.IsDead)
-                    Render.Circle.DrawCircle(base.selectedminion.Position, 100f, System.Drawing.Color.BlueViolet, 3);
-                if (!base.selectedminions.IsDead)
-                    Render.Circle.DrawCircle(base.selectedminions.Position, 100f, System.Drawing.Color.PaleVioletRed, 3);
-            }
+      
         }
         
         public void load(EventArgs args)
