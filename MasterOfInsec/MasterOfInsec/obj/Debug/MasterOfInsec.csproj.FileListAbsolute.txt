@@ -1,0 +1,16 @@
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Release\MasterOfInsec.exe.config
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\obj\Debug\MasterOfInsec.csprojResolveAssemblyReference.cache
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Release\MasterOfInsec.exe
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Release\MasterOfInsec.pdb
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Release\LeagueSharp.Common.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Release\LeagueSharp.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Release\SharpDX.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Release\LeagueSharp.Data.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Release\clipper_library.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Release\Newtonsoft.Json.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Release\LeagueSharp.Common.pdb
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Release\LeagueSharp.Data.pdb
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Release\clipper_library.pdb
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\obj\Debug\MasterOfInsec.exe
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\obj\Debug\MasterOfInsec.pdb

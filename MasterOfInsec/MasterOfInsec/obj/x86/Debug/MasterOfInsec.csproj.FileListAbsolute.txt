@@ -1,0 +1,16 @@
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Debug\MasterOfInsec.exe.config
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Debug\MasterOfInsec.exe
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Debug\MasterOfInsec.pdb
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Debug\LeagueSharp.Common.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Debug\LeagueSharp.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Debug\SharpDX.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Debug\SharpDX.Direct3D9.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Debug\LeagueSharp.Data.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Debug\clipper_library.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Debug\Newtonsoft.Json.dll
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Debug\LeagueSharp.Common.pdb
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Debug\LeagueSharp.Data.pdb
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\bin\Debug\clipper_library.pdb
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\obj\x86\Debug\MasterOfInsec.csprojResolveAssemblyReference.cache
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\obj\x86\Debug\MasterOfInsec.exe
+C:\Users\sergi\Desktop\Assemblys\oldAssemblys\MasterOfInsec\MasterOfInsec\obj\x86\Debug\MasterOfInsec.pdb
