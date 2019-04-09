@@ -47,13 +47,7 @@ end
 function Ryze:Tick()
 	if IsRecalling() then return end
 	
-	--Should work to turn off the orbwalker and auto skills while evade is dodging
-	if self:IsEvading() then
-		self:DisableOrbWalk()
-		return
-	else
-		self:EnableOrbWalk()
-	end
+
 	
 	--Orbwalker says we're in combo mode
 	if self:IsComboActive() then 
@@ -260,10 +254,6 @@ function Ryze:WndMsg(msg,key)
 	end	
 end
 
-function Ryze:IsEvading()	
-    if ExtLibEvade and ExtLibEvade.Evading then return true end
-	return false
-end
 
 
 
