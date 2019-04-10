@@ -64,7 +64,6 @@ function Ryze:Tick()
 	elseif self:IsHarassActive() then 
 		self:Harass()	
 	elseif self:IsLaneClearActive() then 
-		print("Llego aqui what")
 		self:LaneClear()
 		self:JungleClear()		
 
@@ -73,7 +72,6 @@ function Ryze:Tick()
 
 end
 function Ryze:ValidTarget(unit)
-	print("is Valid ggg")
 	return unit and unit.team == TEAM_ENEMY and unit.dead == false and unit.isTargetable and unit.isTargetableToTeam and unit.isImmortal == false
 end
 function Ryze:IsValidCreep(unit, range)
