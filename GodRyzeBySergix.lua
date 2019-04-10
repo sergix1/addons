@@ -188,7 +188,9 @@ function Ryze:Harass()
             then
 			 if targetQ:GetCollision(Q.width,Q.speed,Q.delay) == 0 then
 				local pred = GetGamsteronPrediction(targetQ, Q, myHero)
+				if  pred.Hitchance >= _G.HITCHANCE_HIGH then
 				Control.CastSpell(HK_Q,pred.CastPosition) 
+				end
 
              end
               
@@ -228,7 +230,9 @@ function Ryze:Combo()
             then
 			  --  local Qpos = GetBestCastPosition(targetQ, Q)--
 			  local pred = GetGamsteronPrediction(target, Q, myHero)
-                Control.CastSpell(HK_Q, pred.CastPosition) 
+			  if  pred.Hitchance >= _G.HITCHANCE_HIGH then
+				Control.CastSpell(HK_Q, pred.CastPosition) 
+			end
 			
               
 					--
