@@ -31,7 +31,7 @@ function Ryze:__init()
 end
 
 function Ryze:CreateMenu()
-	Menu = MenuElement({type = MENU, id = myHero.charName, name = "[God Ryze by Sergix]"})
+	Menu = MenuElement({type = MENU, id = myHero.charName, name = "[God Ryze by Sergix v1.0]"})
 	
 	Menu:MenuElement({id = "Drawing", name = "Drawing", type = MENU})
 	Menu.Drawing:MenuElement({id = "DrawQ", name = "Draw Q Range", value = true})
@@ -61,15 +61,20 @@ function Ryze:Tick()
 	
 	if self:IsComboActive() then 
 		self:Combo()		
-	end	
-	
-	if self:IsHarassActive() then 
-		self:Harass()		
-	end
-	if self:IsLaneClearActive() then 
+	elseif self:IsHarassActive() then 
+		self:Harass()	
+	elseif self:IsLaneClearActive() then 
+		print("Llego aqui what")
 		self:LaneClear()
 		self:JungleClear()		
+
+	
 	end
+
+end
+function Ryze:ValidTarget(unit)
+	print("is Valid ggg")
+	return unit and unit.team == TEAM_ENEMY and unit.dead == false and unit.isTargetable and unit.isTargetableToTeam and unit.isImmortal == false
 end
 function Ryze:IsValidCreep(unit, range)
     return unit and unit.dead == false and GetDistanceSqr(myHero.pos, unit.pos) <= (range + myHero.boundingRadius + unit.boundingRadius)^2 and unit.isTargetable and unit.isTargetableToTeam and unit.isImmortal == false and unit.visible
@@ -178,13 +183,13 @@ function Ryze:Harass()
 
     local targetQ = GOS:GetTarget(Q.Range)
     local targetE = GOS:GetTarget(E.Range)
-    if(targetQ)
+    	if targetQ 
     
         then
             if Ready(_Q) 
             then
 			 if targetQ:GetCollision(Q.width,Q.speed,Q.delay) == 0 then
-				local pred = GetGamsteronPrediction(target, Q, myHero)
+				local pred = GetGamsteronPrediction(targetQ, Q, myHero)
 				Control.CastSpell(HK_Q,pred.CastPosition) 
 
              end
@@ -193,7 +198,7 @@ function Ryze:Harass()
 
             end	
         end
-    if(targetE)
+    	if targetE 
     then
             if Ready(_E)
             then
